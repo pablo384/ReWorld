@@ -14,7 +14,7 @@
         android:title="@string/menu_account" />
 
     <item
-        android:id="@+id/action_navigation"
+        android:id="@+id/action_setting"
         android:icon="@drawable/ic_action_settings"
         android:title="@string/menu_settings" />
 

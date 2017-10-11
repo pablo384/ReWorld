@@ -13,15 +13,13 @@ import com.reworld.pablo384.reworld.R
 /**
  * A simple [Fragment] subclass.
  */
-class Fragment_recycle : Fragment() {
+class Fragment_setting : Fragment() {
 
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val view = inflater!!.inflate(R.layout.fragment_fragment_recycle, container, false)
-        view.tag="recycle"
-        return view
+        return inflater!!.inflate(R.layout.fragment_fragment_setting, container, false)
     }
 
 }// Required empty public constructor

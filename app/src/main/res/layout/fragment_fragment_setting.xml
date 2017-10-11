@@ -2,12 +2,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.reworld.pablo384.reworld.UI.fragments.Fragment_account">
+    tools:context="com.reworld.pablo384.reworld.UI.fragments.Fragment_setting">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Fragment Account" />
+        android:text="Fragment Setting" />
 
 </FrameLayout>
