@@ -31,12 +31,13 @@ class Fragment_home : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.fragment_fragment_home, container, false)
-        var url = "http://i.imgur.com/DvpvklR.png"
+        var url = "http://4.bp.blogspot.com/-bnM7ZcjKlKo/TiOiBRsNzSI/AAAAAAAAADM/0nRbxeuJPSQ/s1600/Imagenes+2011+050.jpg"
         var post:ArrayList<Post> = ArrayList()
-        post.add(Post(User("Pablo Reinoso","pablo@gmail.com",url),"Esto es una simple prueba",
-                Calendar.getInstance().get(Calendar.HOUR_OF_DAY),"-50",url))
-        post.add(Post(User("Pablo Reinoso","pablo@gmail.com",url),"Esto es una simple prueba",
-                Calendar.getInstance().get(Calendar.HOUR_OF_DAY),"-50",url))
+        val pablo = User("Pablo Reinoso","pablo@gmail.com",url)
+        post.add(Post(pablo,"Esto es una simple prueba",
+                Calendar.getInstance().get(Calendar.HOUR_OF_DAY),"-50",url, picker = pablo))
+        post.add(Post(pablo,"Esto es una simple prueba",
+                Calendar.getInstance().get(Calendar.HOUR_OF_DAY),"-50",url, picker = pablo))
 
         with(view){
 

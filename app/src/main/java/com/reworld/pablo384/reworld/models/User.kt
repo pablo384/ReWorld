@@ -5,4 +5,5 @@ package com.reworld.pablo384.reworld.models
  */
 data class User(var name:String,
                 val email:String,
-                var picture:String)
+                var picture:String,
+                var task:List<Post>?=null)

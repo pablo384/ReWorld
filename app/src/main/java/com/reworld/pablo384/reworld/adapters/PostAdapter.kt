@@ -30,6 +30,9 @@ class PostAdapter(val postList:ArrayList<Post>) : RecyclerView.Adapter<PostAdapt
             textViewPostName.text=post.author.name
             textViewPostDescription.text=post.description
             Picasso.with(context).load(post.image).into(imageViewPostimage)
+            if (post.picker !=null) {
+                textViewCatch.text = "picked by: ${post.picker?.name}"
+            }
         }
     }
 }

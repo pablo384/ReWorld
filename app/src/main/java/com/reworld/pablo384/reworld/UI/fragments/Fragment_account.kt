@@ -9,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.reworld.pablo384.reworld.R
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.fragment_fragment_account.view.*
 
 
 /**
@@ -20,8 +22,13 @@ class Fragment_account : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
+        val view = inflater!!.inflate(R.layout.fragment_fragment_account, container, false)
+        var url = "https://lh3.googleusercontent.com/-COuBXkid6RA/AAAAAAAAAAI/AAAAAAAAAAA/ACnBePZK49qlMSdfStfOkCuLMk4Yy-Uaaw/s96-c-mo/photo.jpg"
+        with(view){
+            Picasso.with(context).load(url).into(profile_image)
+        }
         // Inflate the layout for this fragment
-        return inflater!!.inflate(R.layout.fragment_fragment_account, container, false)
+        return view
     }
 
     override fun onAttach(context: Context?) {
