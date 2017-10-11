@@ -1,4 +1,14 @@
 <resources>
     <string name="app_name">ReWorld</string>
     <string name="logo">Logo</string>
+    <string name="menu_search">Search</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_navigation">navegation</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_new_post">Recycle</string>
+    <string name="menu_account">Me</string>
+    <string name="button_lets_recycle">Let\'s to Recycle</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
