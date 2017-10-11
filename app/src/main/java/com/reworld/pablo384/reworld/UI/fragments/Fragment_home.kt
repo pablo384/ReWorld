@@ -44,14 +44,10 @@ class Fragment_home : Fragment() {
 
     }
 
-    override fun onViewStateRestored(savedInstanceState: Bundle?) {
-        super.onViewStateRestored(savedInstanceState)
-        mlisten?.selectedBottomH(R.id.action_home)
-    }
 
     override fun onResume() {
         super.onResume()
-
+        mlisten?.selectedBottomH(R.id.action_home)
 
     }
 

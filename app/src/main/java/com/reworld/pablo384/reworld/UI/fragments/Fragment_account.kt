@@ -40,6 +40,11 @@ class Fragment_account : Fragment() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        mlisten?.selectedBottomA(R.id.action_account)
+    }
+
 
 
     interface ListenerAccount{
