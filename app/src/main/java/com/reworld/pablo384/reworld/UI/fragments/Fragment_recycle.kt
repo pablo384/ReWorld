@@ -24,4 +24,5 @@ class Fragment_recycle : Fragment() {
         return view
     }
 
+
 }// Required empty public constructor

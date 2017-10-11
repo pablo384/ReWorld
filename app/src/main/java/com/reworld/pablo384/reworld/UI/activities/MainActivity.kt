@@ -73,6 +73,9 @@ class MainActivity : AppCompatActivity(), Fragment_home.ListenerHome,
 
     override fun onBackPressed() {
         super.onBackPressed()
+//        if (supportFragmentManager.findFragmentByTag("home").isVisible){
+//
+//        }
 
     }
 
