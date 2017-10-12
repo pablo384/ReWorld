@@ -20,18 +20,20 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
+            android:id="@+id/imageViewTookPicture"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_weight=".7"
             android:scaleType="centerCrop"
-            android:src="@drawable/thumbail_not_image"
-            android:layout_weight=".7"/>
+            android:src="@drawable/thumbail_not_image" />
 
         <Button
+            android:id="@+id/buttonTakePicture"
             style="@style/ButtonsAccount"
-            android:text="Take Picture"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight=".1"/>
+            android:layout_weight=".1"
+            android:text="Take Picture" />
         <ToggleButton
             style="@style/ButtonsAccount"
             android:text="Location"
