@@ -81,6 +81,7 @@ class Fragment_recycle : Fragment() {
 //            val imageBitmap = extras?.get("data") as Bitmap
 //            imageViewTookPicture.setImageBitmap(imageBitmap)
             Log.d("TAG", mCurrentPhotoPath.toString())
+            imageViewTookPicture.setPadding(0,0,0,0)
             Picasso.with(activity).load(mCurrentPhotoPath).into(imageViewTookPicture)
         }
 
