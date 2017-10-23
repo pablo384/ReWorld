@@ -38,12 +38,16 @@
         <activity
             android:name=".UI.activities.SettingsActivityProof"
             android:label="@string/title_activity_settings_proof" />
-        <activity android:name=".UI.activities.LoginFBActivity" />
-        <activity android:name=".UI.activities.LoginActivity" />
-        <activity android:name=".UI.activities.CreateAccountActivity" />
+        <activity android:name=".UI.activities.LoginFBActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".UI.activities.LoginActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".UI.activities.CreateAccountActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:theme="@style/SplashScreen"
-            android:name=".UI.activities.SplashScreen">
+            android:name=".UI.activities.SplashScreen"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

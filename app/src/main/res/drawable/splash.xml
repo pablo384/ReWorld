@@ -7,7 +7,7 @@
     <item>
         <bitmap
             android:gravity="center"
-            android:src="@drawable/reworld" />
+            android:src="@drawable/reworlda" />
 
     </item>
 
