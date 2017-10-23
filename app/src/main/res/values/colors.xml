@@ -11,4 +11,8 @@
     <color name="colorSecondaryText">#757575</color>
     <color name="colorIcons">#FFFFFF</color>
     <color name="colorDivider">#BDBDBD</color>
+
+    <color name="editTextColorBlack">#000</color>
+    <color name="editTextColorWhite">#FFFF</color>
+
 </resources>

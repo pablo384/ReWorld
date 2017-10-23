@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.reworld.pablo384.reworld">
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-feature android:name="android.hardware.camera"
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
         android:required="true" />
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-feature android:name="android.hardware.location.gps" />
 
+    <uses-feature android:name="android.hardware.location.gps" />
 
     <application
         android:allowBackup="true"
@@ -23,10 +27,11 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"></meta-data>
+                android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".UI.activities.MainActivity"
+        <activity
+            android:name=".UI.activities.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -36,7 +41,10 @@
         </activity>
         <activity
             android:name=".UI.activities.SettingsActivityProof"
-            android:label="@string/title_activity_settings_proof"></activity>
+            android:label="@string/title_activity_settings_proof" />
+        <activity android:name=".UI.activities.LoginFBActivity" />
+        <activity android:name=".UI.activities.LoginActivity" />
+        <activity android:name=".UI.activities.CreateAccountActivity"></activity>
     </application>
 
 </manifest>
