@@ -33,18 +33,23 @@
         <activity
             android:name=".UI.activities.MainActivity"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".UI.activities.SettingsActivityProof"
             android:label="@string/title_activity_settings_proof" />
         <activity android:name=".UI.activities.LoginFBActivity" />
         <activity android:name=".UI.activities.LoginActivity" />
-        <activity android:name=".UI.activities.CreateAccountActivity"></activity>
+        <activity android:name=".UI.activities.CreateAccountActivity" />
+        <activity
+            android:theme="@style/SplashScreen"
+            android:name=".UI.activities.SplashScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
