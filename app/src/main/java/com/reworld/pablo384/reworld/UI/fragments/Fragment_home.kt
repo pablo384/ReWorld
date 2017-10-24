@@ -1,29 +1,30 @@
 package com.reworld.pablo384.reworld.UI.fragments
 
 
+import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
 import com.reworld.pablo384.reworld.R
-import com.reworld.pablo384.reworld.UI.activities.MainActivity
 import com.reworld.pablo384.reworld.adapters.PostAdapter
 import com.reworld.pablo384.reworld.models.Post
 import com.reworld.pablo384.reworld.models.User
-import kotlinx.android.synthetic.main.fragment_fragment_home.*
+import org.jetbrains.anko.support.v4.toast
 import java.util.*
+
+
 
 
 /**
  * A simple [Fragment] subclass.
  */
-class Fragment_home : Fragment() {
+class Fragment_home : Fragment(), PostAdapter.OnItemClickListener, PostAdapter.OnButtonClickListener {
 
     var mlisten:ListenerHome?=null
 
@@ -43,11 +44,22 @@ class Fragment_home : Fragment() {
 
             findViewById<RecyclerView>(R.id.my_recycler_view_post).setHasFixedSize(true)
             findViewById<RecyclerView>(R.id.my_recycler_view_post).layoutManager = LinearLayoutManager(context)
-            findViewById<RecyclerView>(R.id.my_recycler_view_post).adapter = PostAdapter(post)
+            findViewById<RecyclerView>(R.id.my_recycler_view_post).adapter = PostAdapter(post,
+                    this@Fragment_home,this@Fragment_home)
         }
 
 
         return view
+    }
+
+    override fun onItemClick(post: Post, position: Int) {
+        toast("CLICK EN VISTA")
+    }
+
+    override fun onButtonClick(post: Post, position: Int) {
+        toast("CLICK EN BOTON")
+        showAlertForPickupPost("Recojer","Esta seguro que quiere recoger estos reciduos?",position)
+
     }
 
     override fun onAttach(context: Context?) {
@@ -71,6 +83,18 @@ class Fragment_home : Fragment() {
         super.onResume()
         mlisten?.selectedBottomH(R.id.action_home)
 
+    }
+
+    private fun showAlertForPickupPost(title: String, message: String, position: Int) {
+
+        val dialog = AlertDialog.Builder(context)
+                .setTitle(title)
+                .setMessage(message)
+                .setPositiveButton("Remove", { dialog, whichButton ->
+//                    deleteCity(position)
+                    toast("Will be pick up")
+                })
+                .setNegativeButton("Cancel", null).show()
     }
 
     interface ListenerHome{

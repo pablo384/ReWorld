@@ -26,7 +26,8 @@
         <item name="android:radius">6dp</item>
 
     </style>
-    <style name="ButtonToggle" parent="ButtonsAccount">
+    <style name="ButtonsAccountWhite" parent="ButtonsAccount">
+        <item name="android:textColor">@color/editTextColorWhite</item>
 
 
     </style>

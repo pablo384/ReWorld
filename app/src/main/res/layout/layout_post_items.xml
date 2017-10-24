@@ -119,7 +119,7 @@
             android:background="@color/colorDivider" />
 
         <Button
-            android:id="@+id/buttonGoHead"
+            android:id="@+id/buttonPickup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"

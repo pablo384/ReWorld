@@ -12,9 +12,9 @@ import kotlinx.android.synthetic.main.layout_post_items.view.*
 /**
  * Created by pablo384 on 11/10/17.
  */
-class PostAdapter(val postList:ArrayList<Post>) : RecyclerView.Adapter<PostAdapter.HourViewHolder>() {
+class PostAdapter(val postList:ArrayList<Post>, val itemClickListener: OnItemClickListener,val buttonClickListener: OnButtonClickListener) : RecyclerView.Adapter<PostAdapter.HourViewHolder>() {
     override fun onBindViewHolder(holder: HourViewHolder, position: Int) {
-        return holder.bind(postList[position])
+        return holder.bind(postList[position], itemClickListener, buttonClickListener )
 
     }
 
@@ -26,13 +26,22 @@ class PostAdapter(val postList:ArrayList<Post>) : RecyclerView.Adapter<PostAdapt
 
 
     class HourViewHolder(postItemView: View):RecyclerView.ViewHolder(postItemView){
-        fun bind(post:Post)= with(itemView){
+        fun bind(post:Post, onItemClickListener: OnItemClickListener, onButtonClickListener: OnButtonClickListener)= with(itemView){
             textViewPostName.text=post.author.name
             textViewPostDescription.text=post.description
+            buttonPickup.setOnClickListener { onButtonClickListener.onButtonClick(post,position) }
+            setOnClickListener { onItemClickListener.onItemClick(post, position) }
             Picasso.with(context).load(post.image).into(imageViewPostimage)
             if (post.picker !=null) {
                 textViewCatch.text = "picked by: ${post.picker?.name}"
             }
         }
+    }
+
+    interface OnItemClickListener{
+        fun onItemClick(post:Post, position:Int)
+    }
+    interface OnButtonClickListener{
+        fun onButtonClick(post:Post, position:Int)
     }
 }
