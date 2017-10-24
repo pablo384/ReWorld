@@ -8,9 +8,10 @@ data class Post (val author:User,
                  val date:Int,
                  val location:String,
                  val image:String,
-
+                 var followers:ArrayList<User>?=ArrayList(),
                  var picker:User?=null,
-                 var pickup:Boolean?=false
+                 var pickup:Boolean?=false,
+                 var pickupDate:Int?=null
                  )
 //var followers:List<User>?,
 //var pickupDate:Int?

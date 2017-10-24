@@ -17,8 +17,7 @@ import com.reworld.pablo384.reworld.models.Post
 import com.reworld.pablo384.reworld.models.User
 import org.jetbrains.anko.support.v4.toast
 import java.util.*
-
-
+import kotlin.collections.ArrayList
 
 
 /**
@@ -27,18 +26,20 @@ import java.util.*
 class Fragment_home : Fragment(), PostAdapter.OnItemClickListener, PostAdapter.OnButtonClickListener {
 
     var mlisten:ListenerHome?=null
+    var post:ArrayList<Post> = ArrayList()
+    var task:ArrayList<Post> = ArrayList()
+    var url = "http://4.bp.blogspot.com/-bnM7ZcjKlKo/TiOiBRsNzSI/AAAAAAAAADM/0nRbxeuJPSQ/s1600/Imagenes+2011+050.jpg"
+    val usuarioPablo = User("Pablo Reinoso","usuarioPablo@gmail.com",url)
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.fragment_fragment_home, container, false)
-        var url = "http://4.bp.blogspot.com/-bnM7ZcjKlKo/TiOiBRsNzSI/AAAAAAAAADM/0nRbxeuJPSQ/s1600/Imagenes+2011+050.jpg"
-        var post:ArrayList<Post> = ArrayList()
-        val pablo = User("Pablo Reinoso","pablo@gmail.com",url)
-        post.add(Post(pablo,"Esto es una simple prueba",
-                Calendar.getInstance().get(Calendar.HOUR_OF_DAY),"-50",url, picker = pablo))
-        post.add(Post(pablo,"Esto es una simple prueba",
-                Calendar.getInstance().get(Calendar.HOUR_OF_DAY),"-50",url, picker = pablo))
+
+        post.add(Post(usuarioPablo,"Esto es una simple prueba",
+                Calendar.getInstance().get(Calendar.HOUR_OF_DAY),"-50",url, picker = usuarioPablo))
+        post.add(Post(usuarioPablo,"Esto es una simple prueba",
+                Calendar.getInstance().get(Calendar.HOUR_OF_DAY),"-50",url, picker = usuarioPablo))
 
         with(view){
 
@@ -92,7 +93,10 @@ class Fragment_home : Fragment(), PostAdapter.OnItemClickListener, PostAdapter.O
                 .setMessage(message)
                 .setPositiveButton("Remove", { dialog, whichButton ->
 //                    deleteCity(position)
-                    toast("Will be pick up")
+                    val lista:Post = post[position]
+                    lista.followers?.add(usuarioPablo)
+                    task.add(lista)
+                    toast("Will be pick up ${lista.followers?.last()}")
                 })
                 .setNegativeButton("Cancel", null).show()
     }
