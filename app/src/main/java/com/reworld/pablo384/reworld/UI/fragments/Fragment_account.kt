@@ -11,8 +11,12 @@ import android.view.ViewGroup
 
 import com.reworld.pablo384.reworld.R
 import com.reworld.pablo384.reworld.UI.activities.LoginFBActivity
+import com.reworld.pablo384.reworld.UI.activities.MainActivity
+import com.reworld.pablo384.reworld.UI.activities.TaskToRecycleActivity
+import com.reworld.pablo384.reworld.models.User
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_fragment_account.view.*
+import org.jetbrains.anko.support.v4.toast
 
 
 /**
@@ -31,9 +35,16 @@ class Fragment_account : Fragment() {
         }
         with(view){
             btCalculator.setOnClickListener({
-                val i = Intent(this.context,LoginFBActivity::class.java)
+                val i = Intent(context,LoginFBActivity::class.java)
                 startActivity(i)
+
+
+
             })
+            btTaskRecycle.setOnClickListener {
+                val act = activity as MainActivity
+                toast(act.getData().toString())
+                startActivity(Intent(context,TaskToRecycleActivity::class.java).putExtra("us",act.getData())) }
         }
         // Inflate the layout for this fragment
         return view

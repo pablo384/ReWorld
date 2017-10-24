@@ -17,10 +17,13 @@ import com.reworld.pablo384.reworld.UI.fragments.Fragment_account
 import com.reworld.pablo384.reworld.UI.fragments.Fragment_home
 import com.reworld.pablo384.reworld.UI.fragments.Fragment_recycle
 import com.reworld.pablo384.reworld.UI.fragments.Fragment_setting
+import com.reworld.pablo384.reworld.models.User
 
 
 class MainActivity : FragmentActivity(), Fragment_home.ListenerHome,
         Fragment_account.ListenerAccount, Fragment_recycle.ListenerRecycle {
+
+    var user:User?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,10 +84,14 @@ class MainActivity : FragmentActivity(), Fragment_home.ListenerHome,
     override fun selectedBottomH(name: Int) {
         navigation.selectedItemId = name
     }
+    override fun sendTask(userget: User) {
+        user=userget
+    }
 
     override fun selectedBottomA(name: Int) {
         navigation.selectedItemId = name
     }
+
 
     override fun selectedBottomR(name: Int) {
         navigation.selectedItemId = name
@@ -110,5 +117,6 @@ class MainActivity : FragmentActivity(), Fragment_home.ListenerHome,
 //        frtr.addToBackStack(tag)
         frtr.commit()
     }
+    fun getData(): User?= user
 
 }

@@ -96,6 +96,8 @@ class Fragment_home : Fragment(), PostAdapter.OnItemClickListener, PostAdapter.O
                     val lista:Post = post[position]
                     lista.followers?.add(usuarioPablo)
                     task.add(lista)
+//                    usuarioPablo.task= task
+                    mlisten?.sendTask(usuarioPablo)
                     toast("Will be pick up ${lista.followers?.last()}")
                 })
                 .setNegativeButton("Cancel", null).show()
@@ -103,6 +105,7 @@ class Fragment_home : Fragment(), PostAdapter.OnItemClickListener, PostAdapter.O
 
     interface ListenerHome{
         fun selectedBottomH(name:Int)
+        fun sendTask(user:User)
     }
 
 }// Required empty public constructor
