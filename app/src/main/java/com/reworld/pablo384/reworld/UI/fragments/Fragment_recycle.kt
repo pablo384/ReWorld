@@ -1,6 +1,7 @@
 package com.reworld.pablo384.reworld.UI.fragments
 
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -15,17 +16,33 @@ import com.reworld.pablo384.reworld.util.REQUEST_IMAGE_CAPTURE
 import kotlinx.android.synthetic.main.fragment_fragment_recycle.view.*
 import android.graphics.Bitmap
 import android.R.attr.data
+import android.annotation.SuppressLint
 import android.support.v4.app.NotificationCompat.getExtras
 import android.app.Activity.RESULT_OK
+import android.content.pm.PackageManager
+import android.location.Location
 import android.net.Uri
 import android.os.Environment
 import kotlinx.android.synthetic.main.fragment_fragment_recycle.*
 import android.os.Environment.DIRECTORY_PICTURES
+import android.support.design.widget.Snackbar
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
 import android.support.v4.content.FileProvider
 import android.util.Log
+import com.google.android.gms.common.ConnectionResult
+import com.google.android.gms.common.api.GoogleApiClient
+import com.google.android.gms.location.LocationServices
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionDeniedResponse
+import com.karumi.dexter.listener.PermissionGrantedResponse
+import com.karumi.dexter.listener.PermissionRequest
+import com.karumi.dexter.listener.single.PermissionListener
 import com.reworld.pablo384.reworld.util.REQUEST_TAKE_PHOTO
 import com.squareup.picasso.Picasso
 import org.jetbrains.anko.support.v4.toast
+import org.jetbrains.anko.toast
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -35,12 +52,16 @@ import java.util.*
 /**
  * A simple [Fragment] subclass.
  */
-class Fragment_recycle : Fragment() {
+class Fragment_recycle : Fragment(),
+        GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks{
 
-
+    val MY_PERMISSIONS_REQUEST_FINE_LOCATION = 1
     var mlisten:ListenerRecycle?=null
     var mCurrentPhotoPath:String?=null
     var mCurrentPhotoAbsulutePath:String?=null
+
+    var mGoogleApiClient: GoogleApiClient? = null
+    var mLastLocation: Location?=null
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -48,7 +69,13 @@ class Fragment_recycle : Fragment() {
         val view = inflater!!.inflate(R.layout.fragment_fragment_recycle, container, false)
         with(view){
             buttonTakePicture.setOnClickListener { takePictureIntent() }
+            buttonUpload.setOnClickListener { locationPermission() }
         }
+
+        if (mGoogleApiClient == null) {
+            buildGoogleService()
+        }
+
         return view
     }
 
@@ -66,6 +93,19 @@ class Fragment_recycle : Fragment() {
             throw RuntimeException(context!!.toString() + " must implement ListenerRecycler")
         }
 
+    }
+
+    override fun onStart() {
+        mGoogleApiClient?.connect()
+        locationPermission()
+
+        super.onStart()
+
+    }
+
+    override fun onStop() {
+        mGoogleApiClient?.disconnect()
+        super.onStop()
     }
 
     override fun onResume() {
@@ -87,12 +127,39 @@ class Fragment_recycle : Fragment() {
 
     }
 
-//    private fun takePictureIntent() {
-//        val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-//        if (takePictureIntent.resolveActivity(context.packageManager) != null) {
-//            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
-//        }
-//    }
+    override fun onConnectionFailed(p0: ConnectionResult) {
+
+    }
+
+    @SuppressLint("MissingPermission")
+    override fun onConnected(p0: Bundle?) {
+        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
+                mGoogleApiClient)
+        if (mLastLocation != null) {
+            toast("loc ${mLastLocation!!.latitude} ${mLastLocation!!.longitude}")
+        }
+    }
+
+    override fun onConnectionSuspended(p0: Int) {
+
+    }
+    fun locationPermission(){
+        Dexter.withActivity(activity)
+                .withPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+                .withListener(object : PermissionListener {
+                    override fun onPermissionGranted(response: PermissionGrantedResponse?) {
+
+                    }
+
+                    override fun onPermissionRationaleShouldBeShown(permission: PermissionRequest?, token: PermissionToken?) {
+                        token?.continuePermissionRequest()
+                    }
+
+                    override fun onPermissionDenied(response: PermissionDeniedResponse?) {
+                        Snackbar.make(myCoordinatorLayoutRecycler,"Necesito el permiso para poder subir las publicaciones",Snackbar.LENGTH_LONG).show()
+                    }
+                }).check()
+    }
     private fun takePictureIntent() {
         val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         // Ensure that there's a camera activity to handle the intent
@@ -133,6 +200,13 @@ class Fragment_recycle : Fragment() {
         mCurrentPhotoAbsulutePath = image.absolutePath
         toast(mCurrentPhotoPath.toString())
         return image
+    }
+    fun buildGoogleService(){
+        mGoogleApiClient = GoogleApiClient.Builder(context)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build()
     }
 
     interface ListenerRecycle{

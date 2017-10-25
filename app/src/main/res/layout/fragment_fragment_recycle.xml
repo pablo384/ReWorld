@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient"
+    android:id="@+id/myCoordinatorLayoutRecycler"
     tools:context="com.reworld.pablo384.reworld.UI.fragments.Fragment_recycle">
 
     <LinearLayout
@@ -60,6 +61,7 @@
                 app:layout_constraintVertical_bias="0.0" />
 
             <ToggleButton
+                android:id="@+id/toggleLocation"
                 style="@style/ButtonsAccount"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -96,6 +98,7 @@
 
 
         <Button
+            android:id="@+id/buttonUpload"
             style="@style/ButtonsAccount"
             android:layout_width="match_parent"
             android:layout_height="0dp"
