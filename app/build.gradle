@@ -53,6 +53,8 @@ dependencies {
     compile 'com.karumi:dexter:4.1.0'
     compile "com.android.support:support-core-utils:26.1.0"
 
+    compile 'com.facebook.android:facebook-android-sdk:[4,5)'
+
 
 
 }

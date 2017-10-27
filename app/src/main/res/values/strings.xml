@@ -1,4 +1,7 @@
 <resources>
+    <string name="facebook_app_id">208061289735274</string>
+    <string name="fb_login_protocol_scheme">fb208061289735274</string>
+
     <string name="app_name">ReWorld</string>
     <string name="logo">Logo</string>
     <string name="menu_search">Search</string>
