@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.firebase.auth.FirebaseAuth
 
 import com.reworld.pablo384.reworld.R
 import com.reworld.pablo384.reworld.UI.activities.LoginFBActivity
@@ -25,6 +26,7 @@ import org.jetbrains.anko.support.v4.toast
 class Fragment_account : Fragment() {
 
     var mlisten:ListenerAccount?=null
+    private var mAuth: FirebaseAuth? = null
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -33,7 +35,9 @@ class Fragment_account : Fragment() {
         with(view){
             Picasso.with(context).load(url).into(profile_image)
         }
+        mAuth = FirebaseAuth.getInstance()
         with(view){
+            btLogOut.setOnClickListener { logOut() }
             btCalculator.setOnClickListener({
                 val i = Intent(context,LoginFBActivity::class.java)
                 startActivity(i)
@@ -69,6 +73,10 @@ class Fragment_account : Fragment() {
     override fun onResume() {
         super.onResume()
         mlisten?.selectedBottomA(R.id.action_account)
+    }
+    fun logOut(){
+        mAuth?.signOut()
+
     }
 
 

@@ -93,4 +93,12 @@
     <string name="text_button_login">Login</string>
     <string name="donHaveAcount">Do not have Account?</string>
     <string name="create_here">Get it here!</string>
+
+    <string name="hint_email">Email</string>
+    <string name="hint_name">Name</string>
+    <string name="hint_user">User</string>
+    <string name="hint_confirm_password">Confirm Password</string>
+    <string name="text_button_createAccount">Create Account</string>
+    <string name="toolbar_title_createaccount">Create Account</string>
+
 </resources>
