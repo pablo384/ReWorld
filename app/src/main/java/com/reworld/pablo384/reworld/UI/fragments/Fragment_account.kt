@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.facebook.login.LoginManager
 import com.google.firebase.auth.FirebaseAuth
 
 import com.reworld.pablo384.reworld.R
@@ -75,7 +76,12 @@ class Fragment_account : Fragment() {
         mlisten?.selectedBottomA(R.id.action_account)
     }
     fun logOut(){
+        if (LoginManager.getInstance() != null){
+            LoginManager.getInstance().logOut()
+        }
         mAuth?.signOut()
+        procedApplication(LoginFBActivity::class.java)
+
 
     }
 
@@ -83,6 +89,13 @@ class Fragment_account : Fragment() {
 
     interface ListenerAccount{
         fun selectedBottomA(name:Int)
+    }
+
+    private fun procedApplication(clase: Class<*>) {
+        val intent = Intent(context, clase)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP and Intent.FLAG_ACTIVITY_CLEAR_TASK and Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
+        activity.finish()
     }
 
 }// Required empty public constructor

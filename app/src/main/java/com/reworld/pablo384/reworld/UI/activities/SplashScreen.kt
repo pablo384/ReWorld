@@ -11,7 +11,6 @@ class SplashScreen : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        SystemClock.sleep(1000)
 
         if (FirebaseAuth.getInstance().currentUser != null){
             procedApplication(MainActivity::class.java)
