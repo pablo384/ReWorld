@@ -30,6 +30,8 @@ class MainActivity : FragmentActivity(), Fragment_home.ListenerHome,
         setContentView(R.layout.activity_main)
 
 
+
+
         val frtr = supportFragmentManager.beginTransaction()
         frtr.add(R.id.content_fragment,Fragment_home(),"home")
         frtr.commit()

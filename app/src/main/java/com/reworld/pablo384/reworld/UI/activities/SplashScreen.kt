@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.SystemClock
 import android.content.Intent
 import com.google.firebase.auth.FirebaseAuth
+import com.reworld.pablo384.reworld.util.procedApplicationWithoutStory
 
 
 class SplashScreen : AppCompatActivity() {
@@ -13,19 +14,9 @@ class SplashScreen : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         if (FirebaseAuth.getInstance().currentUser != null){
-            procedApplication(MainActivity::class.java)
+            procedApplicationWithoutStory(this,MainActivity::class.java)
         }else{
-            procedApplication(LoginFBActivity::class.java)
+            procedApplicationWithoutStory(this,LoginFBActivity::class.java)
         }
-
-
     }
-
-    private fun procedApplication(clase: Class<*>) {
-        val intent = Intent(this@SplashScreen, clase)
-//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent)
-        finish()
-    }
-
 }

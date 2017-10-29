@@ -16,6 +16,7 @@ import android.widget.Toast
 import android.util.Log
 import com.google.firebase.auth.FacebookAuthProvider
 import com.facebook.AccessToken
+import com.reworld.pablo384.reworld.util.procedApplicationWithoutStory
 import org.jetbrains.anko.toast
 
 
@@ -80,7 +81,7 @@ class LoginFBActivity : AppCompatActivity() {
                         Log.d(LoginFBActivity.TAG, "signInWithCredential:success")
                         val user = mAuth?.currentUser
                         toast("welcome ${user?.displayName}")
-                        procedApplication(MainActivity::class.java)
+                        procedApplicationWithoutStory(this,MainActivity::class.java)
 
                     } else {
                         // If sign in fails, display a message to the user.

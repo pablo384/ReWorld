@@ -79,6 +79,7 @@
                 android:text="Task to Recycle" />
 
             <Button
+                android:id="@+id/btreadQR"
                 style="@style/ButtonsAccount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
