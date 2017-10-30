@@ -14,27 +14,24 @@ import com.reworld.pablo384.reworld.R
 import android.provider.MediaStore
 import com.reworld.pablo384.reworld.util.REQUEST_IMAGE_CAPTURE
 import kotlinx.android.synthetic.main.fragment_fragment_recycle.view.*
-import android.graphics.Bitmap
-import android.R.attr.data
 import android.annotation.SuppressLint
-import android.support.v4.app.NotificationCompat.getExtras
 import android.app.Activity.RESULT_OK
-import android.content.pm.PackageManager
 import android.location.Location
 import android.net.Uri
 import android.os.Environment
 import kotlinx.android.synthetic.main.fragment_fragment_recycle.*
-import android.os.Environment.DIRECTORY_PICTURES
 import android.support.design.widget.Snackbar
-import android.support.v4.app.ActivityCompat
-import android.support.v4.content.ContextCompat
 import android.support.v4.content.FileProvider
 import android.util.Log
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.location.LocationServices
+import com.google.android.gms.tasks.OnFailureListener
+import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.UploadTask
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionDeniedResponse
@@ -42,15 +39,12 @@ import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.single.PermissionListener
 import com.reworld.pablo384.reworld.models.Post
+import com.reworld.pablo384.reworld.util.FIREBASE_STORAGE_IMAGES
 import com.reworld.pablo384.reworld.util.REQUEST_TAKE_PHOTO
-import com.reworld.pablo384.reworld.util.USER_KEY
 import com.squareup.picasso.Picasso
 import org.jetbrains.anko.support.v4.toast
-import org.jetbrains.anko.toast
 import java.io.File
 import java.io.IOException
-import java.sql.Timestamp
-import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -60,6 +54,9 @@ import java.util.*
  */
 class Fragment_recycle : Fragment(),
         GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks{
+
+    val storage = FirebaseStorage.getInstance()
+    var urlDownload:String?=null
 
     val MY_PERMISSIONS_REQUEST_FINE_LOCATION = 1
     var mlisten:ListenerRecycle?=null
@@ -76,7 +73,7 @@ class Fragment_recycle : Fragment(),
         with(view){
             buttonTakePicture.setOnClickListener { takePictureIntent() }
             buttonUpload.setOnClickListener { locationPermission()
-                uploadPost()
+                uploadImages()
             }
         }
 
@@ -87,19 +84,26 @@ class Fragment_recycle : Fragment(),
         return view
     }
 
-    private fun uploadPost(){
-        if (USER_KEY != null){
-            val post = Post(USER_KEY!!,
-                    FirebaseAuth.getInstance().currentUser?.displayName,
-                    "segunda prueba a la nube",
-                    Calendar.getInstance().timeInMillis,mLastLocation.toString(),
-                    "https://i.imgur.com/TDILXbX.jpg")
-            val database: FirebaseDatabase = FirebaseDatabase.getInstance()
-            val myRef = database.getReference("Post").push()
-            myRef.setValue(post)
+    private fun uploadImages(){
+        val uri = Uri.fromFile(File(mCurrentPhotoAbsulutePath))
+        val imagesRef = storage.reference.child(FIREBASE_STORAGE_IMAGES+"/"+uri.lastPathSegment)
+        val upload = imagesRef.putFile(uri)
+        upload.addOnFailureListener { toast("subida fallo") }.addOnSuccessListener { p0 ->
+            toast("subio nitido")
+            urlDownload = p0?.downloadUrl.toString()
+            toast(urlDownload.toString())
+            saveData()
         }
-
-
+    }
+    private fun saveData(){
+        val post = Post(
+                FirebaseAuth.getInstance().currentUser?.displayName,
+                "segunda prueba a la nube",
+                Calendar.getInstance().timeInMillis,mLastLocation!!.latitude,mLastLocation!!.longitude,
+                urlDownload.toString())
+        val database: FirebaseDatabase = FirebaseDatabase.getInstance()
+        val myRef = database.getReference("Post").push()
+        myRef.setValue(post)
     }
 
     override fun onAttach(context: Context?) {

@@ -6,11 +6,13 @@ import com.google.firebase.auth.FirebaseUser
 /**
  * Created by pablo384 on 11/10/17.
  */
-data class Post (val authorKey: String,
+data class Post (
+//        val authorKey: String,
                  val authorName: String? = FirebaseAuth.getInstance().currentUser?.displayName,
                  val description:String,
                  val date:Long,
-                 val location:String,
+                 val latitude:Double,
+                 val longitude:Double,
                  val image:String,
                  var followers:ArrayList<String>?=ArrayList(),
                  var picker:String?=null,

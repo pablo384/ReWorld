@@ -10,6 +10,8 @@ import android.support.v7.app.AppCompatActivity
 val REQUEST_IMAGE_CAPTURE = 1
 val REQUEST_TAKE_PHOTO = 1
 var USER_KEY:String?=null
+val FIREBASE_STORAGE_URL = "gs://reworld-3d5ed.appspot.com/images/"
+val FIREBASE_STORAGE_IMAGES = "images"
 
 
 fun procedApplicationWithoutStory(thisActivity:Activity, nextActivity: Class<*>) {
