@@ -23,6 +23,8 @@ import com.reworld.pablo384.reworld.models.User
 import org.jetbrains.anko.support.v4.toast
 import java.util.*
 import kotlin.collections.ArrayList
+import android.content.Intent
+import android.net.Uri
 
 
 /**
@@ -110,19 +112,24 @@ class Fragment_home : Fragment(), PostAdapter.OnItemClickListener, PostAdapter.O
 
     private fun showAlertForPickupPost(title: String, message: String, position: Int) {
 
-        val dialog = AlertDialog.Builder(context)
+        AlertDialog.Builder(context)
                 .setTitle(title)
                 .setMessage(message)
-                .setPositiveButton("Remove", { dialog, whichButton ->
+                .setPositiveButton("Pickup", { dialog, whichButton ->
 //                    deleteCity(position)
-                    val lista:Post = post[position]
-//                    lista.followers?.add(usuarioPablo)
-                    task.add(lista)
-//                    usuarioPablo.task= task
-//                    mlisten?.sendTask(usuarioPablo)
-                    toast("Will be pick up ${lista.followers?.last()}")
+                    val item:Post = post[position]
+                    val uri:Uri = Uri.parse("http://maps.google.com/maps?daddr=${item.latitude},${item.longitude}")
+                    showMap(uri)
                 })
                 .setNegativeButton("Cancel", null).show()
+    }
+
+    fun showMap(geoLocation: Uri) {
+        val intent = Intent(Intent.ACTION_VIEW,geoLocation)
+//        intent.data = geoLocation
+        if (intent.resolveActivity(activity.packageManager) != null) {
+            startActivity(intent)
+        }
     }
 
     interface ListenerHome{
