@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.firebase.auth.FirebaseAuth
 
 import com.reworld.pablo384.reworld.R
 import com.reworld.pablo384.reworld.adapters.PostAdapter
@@ -29,17 +30,20 @@ class Fragment_home : Fragment(), PostAdapter.OnItemClickListener, PostAdapter.O
     var post:ArrayList<Post> = ArrayList()
     var task:ArrayList<Post> = ArrayList()
     var url = "http://4.bp.blogspot.com/-bnM7ZcjKlKo/TiOiBRsNzSI/AAAAAAAAADM/0nRbxeuJPSQ/s1600/Imagenes+2011+050.jpg"
-    val usuarioPablo = User("Pablo Reinoso","usuarioPablo@gmail.com",url)
+    val usuarioPablo = FirebaseAuth.getInstance().currentUser
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.fragment_fragment_home, container, false)
 
-        post.add(Post(usuarioPablo,"Esto es una simple prueba",
-                Calendar.getInstance().get(Calendar.HOUR_OF_DAY),"-50",url, picker = usuarioPablo))
-        post.add(Post(usuarioPablo,"Esto es una simple prueba",
-                Calendar.getInstance().get(Calendar.HOUR_OF_DAY),"-50",url, picker = usuarioPablo))
+//        post.add(Post(usuarioPablo?.,usuarioPablo?.displayName,"Esto es una simple prueba",
+//                Calendar.getInstance().timeInMillis,"-50",url, picker = usuarioPablo?.displayName))
+//        post.add(Post(usuarioPablo?.uid,usuarioPablo?.displayName,"Esto es una simple prueba",
+//                Calendar.getInstance().timeInMillis,"-50",url, picker = usuarioPablo?.displayName))
+//        post.add(Post(usuarioPablo?.uid,usuarioPablo?.displayName,"Esto es una simple prueba",
+//                Calendar.getInstance().timeInMillis,"-50",url, picker = usuarioPablo?.displayName))
+
 
         with(view){
 
@@ -94,10 +98,10 @@ class Fragment_home : Fragment(), PostAdapter.OnItemClickListener, PostAdapter.O
                 .setPositiveButton("Remove", { dialog, whichButton ->
 //                    deleteCity(position)
                     val lista:Post = post[position]
-                    lista.followers?.add(usuarioPablo)
+//                    lista.followers?.add(usuarioPablo)
                     task.add(lista)
 //                    usuarioPablo.task= task
-                    mlisten?.sendTask(usuarioPablo)
+//                    mlisten?.sendTask(usuarioPablo)
                     toast("Will be pick up ${lista.followers?.last()}")
                 })
                 .setNegativeButton("Cancel", null).show()

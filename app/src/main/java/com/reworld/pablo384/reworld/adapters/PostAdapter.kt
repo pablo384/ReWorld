@@ -27,13 +27,13 @@ class PostAdapter(val postList:ArrayList<Post>, val itemClickListener: OnItemCli
 
     class HourViewHolder(postItemView: View):RecyclerView.ViewHolder(postItemView){
         fun bind(post:Post, onItemClickListener: OnItemClickListener, onButtonClickListener: OnButtonClickListener)= with(itemView){
-            textViewPostName.text=post.author.name
+            textViewPostName.text=post.authorName
             textViewPostDescription.text=post.description
             buttonPickup.setOnClickListener { onButtonClickListener.onButtonClick(post,position) }
             setOnClickListener { onItemClickListener.onItemClick(post, position) }
             Picasso.with(context).load(post.image).into(imageViewPostimage)
             if (post.picker !=null) {
-                textViewCatch.text = "picked by: ${post.picker?.name}"
+                textViewCatch.text = "picked by: ${post.picker}"
             }
         }
     }

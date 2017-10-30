@@ -33,18 +33,24 @@ import android.util.Log
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.location.LocationServices
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionDeniedResponse
 import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.single.PermissionListener
+import com.reworld.pablo384.reworld.models.Post
 import com.reworld.pablo384.reworld.util.REQUEST_TAKE_PHOTO
+import com.reworld.pablo384.reworld.util.USER_KEY
 import com.squareup.picasso.Picasso
 import org.jetbrains.anko.support.v4.toast
 import org.jetbrains.anko.toast
 import java.io.File
 import java.io.IOException
+import java.sql.Timestamp
+import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -69,7 +75,9 @@ class Fragment_recycle : Fragment(),
         val view = inflater!!.inflate(R.layout.fragment_fragment_recycle, container, false)
         with(view){
             buttonTakePicture.setOnClickListener { takePictureIntent() }
-            buttonUpload.setOnClickListener { locationPermission() }
+            buttonUpload.setOnClickListener { locationPermission()
+                uploadPost()
+            }
         }
 
         if (mGoogleApiClient == null) {
@@ -77,6 +85,21 @@ class Fragment_recycle : Fragment(),
         }
 
         return view
+    }
+
+    private fun uploadPost(){
+        if (USER_KEY != null){
+            val post = Post(USER_KEY!!,
+                    FirebaseAuth.getInstance().currentUser?.displayName,
+                    "segunda prueba a la nube",
+                    Calendar.getInstance().timeInMillis,mLastLocation.toString(),
+                    "https://i.imgur.com/TDILXbX.jpg")
+            val database: FirebaseDatabase = FirebaseDatabase.getInstance()
+            val myRef = database.getReference("Post").push()
+            myRef.setValue(post)
+        }
+
+
     }
 
     override fun onAttach(context: Context?) {

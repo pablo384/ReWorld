@@ -5,7 +5,8 @@ import java.io.Serializable
 /**
  * Created by pablo384 on 11/10/17.
  */
-data class User(var name:String,
+data class User(val id:String,
+                var name:String,
                 val email:String,
-                var picture:String,
-                var task:ArrayList<Post>?=null) : Serializable
+                var photoUrl:String="null",
+                var tasks:ArrayList<Post>?=null) : Serializable

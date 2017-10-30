@@ -13,23 +13,24 @@ import android.support.annotation.NonNull
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.FragmentActivity
 import android.view.MenuItem
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
 import com.reworld.pablo384.reworld.UI.fragments.Fragment_account
 import com.reworld.pablo384.reworld.UI.fragments.Fragment_home
 import com.reworld.pablo384.reworld.UI.fragments.Fragment_recycle
 import com.reworld.pablo384.reworld.UI.fragments.Fragment_setting
 import com.reworld.pablo384.reworld.models.User
+import com.reworld.pablo384.reworld.util.USER_KEY
 
 
 class MainActivity : FragmentActivity(), Fragment_home.ListenerHome,
         Fragment_account.ListenerAccount, Fragment_recycle.ListenerRecycle {
 
-    var user:User?=null
+    lateinit var user:User
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-
 
 
         val frtr = supportFragmentManager.beginTransaction()
@@ -81,14 +82,28 @@ class MainActivity : FragmentActivity(), Fragment_home.ListenerHome,
                 }
         )
 
+//        val database: FirebaseDatabase = FirebaseDatabase.getInstance()
+//        val myRef = database.getReference("User").push()
+//        myRef.setValue(post)
 
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val fireUser =  FirebaseAuth.getInstance().currentUser
+        user = User(fireUser!!.uid,
+                fireUser.displayName.toString(),
+                fireUser.email.toString(),
+                fireUser.photoUrl.toString())
+        uploadUser(user)
     }
 
     override fun selectedBottomH(name: Int) {
         navigation.selectedItemId = name
     }
     override fun sendTask(userget: User) {
-        user=userget
+
     }
 
     override fun selectedBottomA(name: Int) {
@@ -114,11 +129,18 @@ class MainActivity : FragmentActivity(), Fragment_home.ListenerHome,
         frtr.addToBackStack(tag)
         frtr.commit()
     }
-    private fun setFragmenthome(fragment:Fragment, tag:String) {
-        val frtr = supportFragmentManager.beginTransaction()
-        frtr.add(R.id.content_fragment, fragment, tag)
-//        frtr.addToBackStack(tag)
-        frtr.commit()
+    private fun uploadUser(user:User){
+        var query = FirebaseDatabase.getInstance().reference.child("User").orderByChild("email").equalTo(user.email)
+
+        Log.d("TAG", query.toString())
+//        val database: FirebaseDatabase = FirebaseDatabase.getInstance()
+//        val myRef = database.getReference("User").push()
+//        myRef.setValue(user)
+//        USER_KEY = myRef.key
+//        toast(USER_KEY!!)
+    }
+    private fun listListener(){
+
     }
     fun getData(): User?= user
 
