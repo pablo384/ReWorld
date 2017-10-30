@@ -11,6 +11,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 import com.reworld.pablo384.reworld.R
 import com.reworld.pablo384.reworld.adapters.PostAdapter
@@ -36,21 +40,35 @@ class Fragment_home : Fragment(), PostAdapter.OnItemClickListener, PostAdapter.O
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.fragment_fragment_home, container, false)
+        val postAdapter = PostAdapter(post,
+        this@Fragment_home,this@Fragment_home)
+        val fireBD = FirebaseDatabase.getInstance().getReference("Post")
+        fireBD.addValueEventListener(object :ValueEventListener{
+            override fun onDataChange(p0: DataSnapshot) {
+                post.removeAll(post)
+//                p0.children.mapNotNullTo(post) { it.getValue<Post>(Post::class.java) }
+                for (ds:DataSnapshot in p0.children){
+                    val auName = ds.child("authorName").getValue(String::class.java) as String
+                    val image = ds.child("image").getValue(String::class.java) as String
+                    val date = ds.child("date").getValue(Long::class.java) as Long
+                    val description = ds.child("description").getValue(String::class.java) as String
+                    val latitude = ds.child("latitude").getValue(Double::class.java) as Double
+                    val longitude = ds.child("longitude").getValue(Double::class.java) as Double
+                    post.add(Post(auName,description,date,latitude,longitude,image))
+                }
+                postAdapter.notifyDataSetChanged()
+            }
 
-//        post.add(Post(usuarioPablo?.,usuarioPablo?.displayName,"Esto es una simple prueba",
-//                Calendar.getInstance().timeInMillis,"-50",url, picker = usuarioPablo?.displayName))
-//        post.add(Post(usuarioPablo?.uid,usuarioPablo?.displayName,"Esto es una simple prueba",
-//                Calendar.getInstance().timeInMillis,"-50",url, picker = usuarioPablo?.displayName))
-//        post.add(Post(usuarioPablo?.uid,usuarioPablo?.displayName,"Esto es una simple prueba",
-//                Calendar.getInstance().timeInMillis,"-50",url, picker = usuarioPablo?.displayName))
+            override fun onCancelled(p0: DatabaseError?) {
+            }
+        })
 
 
         with(view){
 
             findViewById<RecyclerView>(R.id.my_recycler_view_post).setHasFixedSize(true)
             findViewById<RecyclerView>(R.id.my_recycler_view_post).layoutManager = LinearLayoutManager(context)
-            findViewById<RecyclerView>(R.id.my_recycler_view_post).adapter = PostAdapter(post,
-                    this@Fragment_home,this@Fragment_home)
+            findViewById<RecyclerView>(R.id.my_recycler_view_post).adapter = postAdapter
         }
 
 

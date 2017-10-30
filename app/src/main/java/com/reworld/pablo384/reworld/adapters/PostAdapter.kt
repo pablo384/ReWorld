@@ -31,7 +31,8 @@ class PostAdapter(val postList:ArrayList<Post>, val itemClickListener: OnItemCli
             textViewPostDescription.text=post.description
             buttonPickup.setOnClickListener { onButtonClickListener.onButtonClick(post,position) }
             setOnClickListener { onItemClickListener.onItemClick(post, position) }
-            Picasso.with(context).load(post.image).into(imageViewPostimage)
+            Picasso.with(context).load(post.image)
+                    .into(imageViewPostimage)
             if (post.picker !=null) {
                 textViewCatch.text = "picked by: ${post.picker}"
             }
