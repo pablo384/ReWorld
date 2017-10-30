@@ -60,14 +60,13 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0" />
 
-            <ToggleButton
-                android:id="@+id/toggleLocation"
+            <Button
+                android:id="@+id/buttonLocation"
                 style="@style/ButtonsAccount"
                 android:layout_width="0dp"
+                android:text="Location"
                 android:layout_height="match_parent"
                 android:checked="true"
-                android:textOff="Location Off"
-                android:textOn="Location On"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.556"

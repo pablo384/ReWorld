@@ -16,6 +16,8 @@ import com.reworld.pablo384.reworld.util.REQUEST_IMAGE_CAPTURE
 import kotlinx.android.synthetic.main.fragment_fragment_recycle.view.*
 import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.location.Location
 import android.net.Uri
 import android.os.Environment
@@ -74,6 +76,9 @@ class Fragment_recycle : Fragment(),
             buttonTakePicture.setOnClickListener { takePictureIntent() }
             buttonUpload.setOnClickListener { locationPermission()
                 uploadImages()
+            }
+            buttonLocation.setOnClickListener {
+
             }
         }
 
@@ -235,6 +240,28 @@ class Fragment_recycle : Fragment(),
                 .addApi(LocationServices.API)
                 .build()
     }
+
+
+fun resizeBitmap(photoPath:String,targetW:Int, targetH:Int):Bitmap {
+    val bmOptions: BitmapFactory.Options = BitmapFactory.Options()
+    bmOptions.inJustDecodeBounds = true
+    BitmapFactory.decodeFile(photoPath, bmOptions);
+    val photoW:Int = bmOptions.outWidth;
+    val photoH:Int = bmOptions.outHeight;
+
+    var scaleFactor = 1
+    if ((targetW > 0) or (targetH > 0)) {
+            scaleFactor = Math.min(photoW/targetW, photoH/targetH)
+    }
+
+    bmOptions.inJustDecodeBounds = false
+    bmOptions.inSampleSize = scaleFactor
+    bmOptions.inPurgeable = true //Deprecated API 21
+
+    return BitmapFactory.decodeFile(photoPath, bmOptions)
+}
+
+
 
     interface ListenerRecycle{
         fun selectedBottomR(name:Int)

@@ -44,6 +44,7 @@ class Fragment_home : Fragment(), PostAdapter.OnItemClickListener, PostAdapter.O
         val view = inflater!!.inflate(R.layout.fragment_fragment_home, container, false)
         val postAdapter = PostAdapter(post,
         this@Fragment_home,this@Fragment_home)
+        //Pendiente de correr en segundo plano
         val fireBD = FirebaseDatabase.getInstance().getReference("Post")
         fireBD.addValueEventListener(object :ValueEventListener{
             override fun onDataChange(p0: DataSnapshot) {
