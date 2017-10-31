@@ -3,6 +3,7 @@ package com.reworld.pablo384.reworld.UI.activities
 import android.support.v4.app.Fragment
 import android.app.FragmentManager
 import android.content.Intent
+import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -20,6 +21,7 @@ import com.reworld.pablo384.reworld.UI.fragments.Fragment_home
 import com.reworld.pablo384.reworld.UI.fragments.Fragment_recycle
 import com.reworld.pablo384.reworld.UI.fragments.Fragment_setting
 import com.reworld.pablo384.reworld.models.User
+import com.reworld.pablo384.reworld.util.MyService
 import com.reworld.pablo384.reworld.util.USER_KEY
 
 
@@ -85,6 +87,7 @@ class MainActivity : FragmentActivity(), Fragment_home.ListenerHome,
 //        val database: FirebaseDatabase = FirebaseDatabase.getInstance()
 //        val myRef = database.getReference("User").push()
 //        myRef.setValue(post)
+
 
 
     }
