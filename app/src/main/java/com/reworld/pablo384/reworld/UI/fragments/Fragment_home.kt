@@ -2,6 +2,7 @@ package com.reworld.pablo384.reworld.UI.fragments
 
 
 import android.app.AlertDialog
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -24,7 +25,15 @@ import org.jetbrains.anko.support.v4.toast
 import java.util.*
 import kotlin.collections.ArrayList
 import android.content.Intent
+import android.content.IntentFilter
 import android.net.Uri
+import com.reworld.pablo384.reworld.UI.activities.MainActivity
+import com.reworld.pablo384.reworld.util.MyService
+import com.reworld.pablo384.reworld.util.POSTS_LIST
+import com.reworld.pablo384.reworld.util.procedApplicationWithoutStory
+import kotlinx.android.synthetic.main.activity_task_to_recycle.*
+import kotlinx.android.synthetic.main.fragment_fragment_home.*
+import org.jetbrains.anko.toast
 
 
 /**
@@ -34,22 +43,18 @@ class Fragment_home : Fragment(), PostAdapter.OnItemClickListener, PostAdapter.O
 
     var mlisten:ListenerHome?=null
     var post:ArrayList<Post> = ArrayList()
-    var task:ArrayList<Post> = ArrayList()
-    var url = "http://4.bp.blogspot.com/-bnM7ZcjKlKo/TiOiBRsNzSI/AAAAAAAAADM/0nRbxeuJPSQ/s1600/Imagenes+2011+050.jpg"
-    val usuarioPablo = FirebaseAuth.getInstance().currentUser
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.fragment_fragment_home, container, false)
-        val postAdapter = PostAdapter(post,
+        val postAdapter = PostAdapter(POSTS_LIST,
         this@Fragment_home,this@Fragment_home)
         //Pendiente de correr en segundo plano
         val fireBD = FirebaseDatabase.getInstance().getReference("Post")
         fireBD.addValueEventListener(object :ValueEventListener{
             override fun onDataChange(p0: DataSnapshot) {
-                post.removeAll(post)
-//                p0.children.mapNotNullTo(post) { it.getValue<Post>(Post::class.java) }
+                POSTS_LIST.removeAll(POSTS_LIST)
                 for (ds:DataSnapshot in p0.children){
                     val auName = ds.child("authorName").getValue(String::class.java) as String
                     val image = ds.child("image").getValue(String::class.java) as String
@@ -57,7 +62,7 @@ class Fragment_home : Fragment(), PostAdapter.OnItemClickListener, PostAdapter.O
                     val description = ds.child("description").getValue(String::class.java) as String
                     val latitude = ds.child("latitude").getValue(Double::class.java) as Double
                     val longitude = ds.child("longitude").getValue(Double::class.java) as Double
-                    post.add(Post(auName,description,date,latitude,longitude,image))
+                    POSTS_LIST.add(Post(auName,description,date,latitude,longitude,image))
                 }
                 postAdapter.notifyDataSetChanged()
             }
@@ -73,6 +78,15 @@ class Fragment_home : Fragment(), PostAdapter.OnItemClickListener, PostAdapter.O
             findViewById<RecyclerView>(R.id.my_recycler_view_post).layoutManager = LinearLayoutManager(context)
             findViewById<RecyclerView>(R.id.my_recycler_view_post).adapter = postAdapter
         }
+//        val filter = IntentFilter()
+//        filter.addAction(MyService.ACTION_PROGRESO)
+//        filter.addAction(MyService.ACTION_FIN)
+//        val reci = ProgressReciver()
+//        activity.registerReceiver(reci,filter)
+//
+//        val tarea = Intent(context,MyService::class.java)
+//        tarea.putExtra(MyService.FIREBASE_POST_HOME,1)
+//        activity.startService(tarea)
 
 
         return view
@@ -118,7 +132,7 @@ class Fragment_home : Fragment(), PostAdapter.OnItemClickListener, PostAdapter.O
                 .setMessage(message)
                 .setPositiveButton("Pickup", { dialog, whichButton ->
 //                    deleteCity(position)
-                    val item:Post = post[position]
+                    val item:Post = POSTS_LIST[position]
                     val uri:Uri = Uri.parse("http://maps.google.com/maps?daddr=${item.latitude},${item.longitude}")
                     showMap(uri)
                 })
@@ -131,6 +145,21 @@ class Fragment_home : Fragment(), PostAdapter.OnItemClickListener, PostAdapter.O
         if (intent.resolveActivity(activity.packageManager) != null) {
             startActivity(intent)
         }
+    }
+
+    private inner class ProgressReciver: BroadcastReceiver(){
+        override fun onReceive(context: Context, intent: Intent) {
+            if (intent.action.equals(MyService.ACTION_PROGRESO)){
+                var prog = intent.getIntExtra("progreso",0)
+                progressBar2.progress=prog
+            }else if (intent.action.equals(MyService.ACTION_FIN)){
+                toast("Tarea Finalizada")
+
+
+
+            }
+        }
+
     }
 
     interface ListenerHome{

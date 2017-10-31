@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.layout_post_items.view.*
 /**
  * Created by pablo384 on 11/10/17.
  */
-class PostAdapter(val postList:ArrayList<Post>, val itemClickListener: OnItemClickListener,val buttonClickListener: OnButtonClickListener) : RecyclerView.Adapter<PostAdapter.HourViewHolder>() {
+class PostAdapter(var postList:ArrayList<Post>, val itemClickListener: OnItemClickListener,val buttonClickListener: OnButtonClickListener) : RecyclerView.Adapter<PostAdapter.HourViewHolder>() {
     override fun onBindViewHolder(holder: HourViewHolder, position: Int) {
         return holder.bind(postList[position], itemClickListener, buttonClickListener )
 
@@ -23,6 +23,14 @@ class PostAdapter(val postList:ArrayList<Post>, val itemClickListener: OnItemCli
 
 
     override fun getItemCount(): Int= postList.size
+
+    fun setItems(post:ArrayList<Post>){
+
+        postList.clear()
+        postList.addAll(post)
+        notifyDataSetChanged()
+
+    }
 
 
     class HourViewHolder(postItemView: View):RecyclerView.ViewHolder(postItemView){

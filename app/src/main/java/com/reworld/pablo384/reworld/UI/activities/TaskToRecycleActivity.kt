@@ -35,7 +35,7 @@ class TaskToRecycleActivity : AppCompatActivity() {
         val reci = ProgressReciver()
         registerReceiver(reci,filter)
     }
-    inner class ProgressReciver:BroadcastReceiver(){
+    private inner class ProgressReciver:BroadcastReceiver(){
         override fun onReceive(context: Context, intent: Intent) {
             if (intent.action.equals(MyService.ACTION_PROGRESO)){
                 var prog = intent.getIntExtra("progreso",0)

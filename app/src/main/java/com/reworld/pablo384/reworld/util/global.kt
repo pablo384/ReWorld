@@ -20,6 +20,7 @@ var USER_KEY:String?=null
 val FIREBASE_STORAGE_URL = "gs://reworld-3d5ed.appspot.com/images/"
 val FIREBASE_STORAGE_IMAGES = "images"
 var USER_LOG:User?=null
+val POSTS_LIST:ArrayList<Post> = ArrayList()
 
 
 fun procedApplicationWithoutStory(thisActivity:Activity, nextActivity: Class<*>) {
@@ -33,6 +34,29 @@ fun procedApplicationWithoutStory(thisActivity:AppCompatActivity, nextActivity: 
     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP and Intent.FLAG_ACTIVITY_CLEAR_TASK and Intent.FLAG_ACTIVITY_NEW_TASK)
     thisActivity.startActivity(intent)
     thisActivity.finish()
+}
+fun updatePost(){
+    val fireBD = FirebaseDatabase.getInstance().getReference("Post")
+    fireBD.addValueEventListener(object :ValueEventListener{
+        override fun onDataChange(p0: DataSnapshot) {
+            val post:ArrayList<Post> = ArrayList()
+            for (ds:DataSnapshot in p0.children){
+                val auName = ds.child("authorName").getValue(String::class.java) as String
+                val image = ds.child("image").getValue(String::class.java) as String
+                val date = ds.child("date").getValue(Long::class.java) as Long
+                val description = ds.child("description").getValue(String::class.java) as String
+                val latitude = ds.child("latitude").getValue(Double::class.java) as Double
+                val longitude = ds.child("longitude").getValue(Double::class.java) as Double
+                post.add(Post(auName,description,date,latitude,longitude,image))
+            }
+            POSTS_LIST.clear()
+            POSTS_LIST.addAll(post)
+
+        }
+
+        override fun onCancelled(p0: DatabaseError?) {
+        }
+    })
 }
 fun checkUser():ArrayList<User>{
     val userList = ArrayList<User>()
@@ -76,6 +100,5 @@ fun createUser(){
     val fbUser = FirebaseAuth.getInstance().currentUser
     USER_LOG= User(myRef.key,fbUser!!.uid,fbUser.displayName.toString(),fbUser.photoUrl.toString())
     myRef.setValue(USER_LOG)
-
 
 }
