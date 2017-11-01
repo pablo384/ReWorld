@@ -44,6 +44,7 @@ import com.reworld.pablo384.reworld.models.Post
 import com.reworld.pablo384.reworld.util.FIREBASE_STORAGE_IMAGES
 import com.reworld.pablo384.reworld.util.REQUEST_TAKE_PHOTO
 import com.squareup.picasso.Picasso
+import me.echodev.resizer.Resizer
 import org.jetbrains.anko.support.v4.toast
 import java.io.File
 import java.io.IOException
@@ -153,8 +154,18 @@ class Fragment_recycle : Fragment(),
 //            val imageBitmap = extras?.get("data") as Bitmap
 //            imageViewTookPicture.setImageBitmap(imageBitmap)
             Log.d("TAG", mCurrentPhotoPath.toString())
+            Log.d("TAG", mCurrentPhotoAbsulutePath.toString())
             imageViewTookPicture.setPadding(0,0,0,0)
             Picasso.with(activity).load(mCurrentPhotoPath).into(imageViewTookPicture)
+            Resizer(context)
+                    .setTargetLength(1080)
+                    .setQuality(80)
+                    .setOutputFormat("JPEG")
+                    .setOutputDirPath("/storage/emulated/0/Android/data/com.reworld.pablo384.reworld/files/Pictures/")
+                    .setSourceImage(File(mCurrentPhotoAbsulutePath))
+                    .resizedFile
+            toast("Imagen Comprimida")
+
         }
 
     }
@@ -168,14 +179,16 @@ class Fragment_recycle : Fragment(),
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
                 mGoogleApiClient)
         if (mLastLocation != null) {
-            toast("loc ${mLastLocation!!.latitude} ${mLastLocation!!.longitude}")
+//            toast("loc ${mLastLocation!!.latitude} ${mLastLocation!!.longitude}")
+        }else{
+            locationPermission()
         }
     }
 
     override fun onConnectionSuspended(p0: Int) {
 
     }
-    fun locationPermission(){
+    private fun locationPermission(){
         Dexter.withActivity(activity)
                 .withPermission(Manifest.permission.ACCESS_FINE_LOCATION)
                 .withListener(object : PermissionListener {

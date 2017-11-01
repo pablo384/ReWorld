@@ -18,7 +18,6 @@ var USER_KEY:String?=null
 val FIREBASE_STORAGE_URL = "gs://reworld-3d5ed.appspot.com/images/"
 val FIREBASE_STORAGE_IMAGES = "images"
 var USER_LOG:User?=null
-val USERS_LIST:ArrayList<User> = ArrayList()
 val POSTS_LIST:ArrayList<Post> = ArrayList()
 
 
@@ -34,68 +33,8 @@ fun procedApplicationWithoutStory(thisActivity:AppCompatActivity, nextActivity: 
     thisActivity.startActivity(intent)
     thisActivity.finish()
 }
-//fun updatePost(){
-//    val fireBD = FirebaseDatabase.getInstance().getReference("Post")
-//    fireBD.addValueEventListener(object :ValueEventListener{
-//        override fun onDataChange(p0: DataSnapshot) {
-//            val post:ArrayList<Post> = ArrayList()
-//            for (ds:DataSnapshot in p0.children){
-//                val auName = ds.child("authorName").getValue(String::class.java) as String
-//                val image = ds.child("image").getValue(String::class.java) as String
-//                val date = ds.child("date").getValue(Long::class.java) as Long
-//                val description = ds.child("description").getValue(String::class.java) as String
-//                val latitude = ds.child("latitude").getValue(Double::class.java) as Double
-//                val longitude = ds.child("longitude").getValue(Double::class.java) as Double
-//                post.add(Post(auName,description,date,latitude,longitude,image))
-//            }
-//            POSTS_LIST.clear()
-//            POSTS_LIST.addAll(post)
-//
-//        }
-//
-//        override fun onCancelled(p0: DatabaseError?) {
-//        }
-//    })
-//}
-//fun checkUser(){
-//    val fireBD = FirebaseDatabase.getInstance().getReference("User")
-//    fireBD.addValueEventListener(object : ValueEventListener {
-//        override fun onDataChange(p0: DataSnapshot) {
-//            USERS_LIST.removeAll(USERS_LIST)
-//
-//            for (ds: DataSnapshot in p0.children){
-//                val email = ds.child("email").getValue(String::class.java) as String
-//                val id = ds.child("id").getValue(String::class.java) as String
-//                val key = ds.key as String
-////                val date = ds.child("date").getValue(Long::class.java) as Long
-//                val name = ds.child("name").getValue(String::class.java) as String
-//                val photoUrl = ds.child("photoUrl").getValue(String::class.java) as String
-////                val latitude = ds.child("latitude").getValue(Double::class.java) as Double
-////                val longitude = ds.child("longitude").getValue(Double::class.java) as Double
-//                if (FirebaseAuth.getInstance().currentUser?.uid == id){
-//                    USER_LOG=User(key,id,name,email,photoUrl)
-//                }
-//                USERS_LIST.add(User(key,id,name,email,photoUrl))
-//
-//            }
-//
-//
-//        }
-//
-//        override fun onCancelled(p0: DatabaseError?) {
-//        }
-//    })
-//}
-fun findUser(){
 
-//    for (user in USERS_LIST){
-//        Log.d("USER_AUTH",user.toString())
-//        if (user.id==FirebaseAuth.getInstance().currentUser?.uid){
-//            USER_LOG = user
-//            Log.d("USER_AUTH","User found")
-//
-//        }
-//    }
+fun findUser(){
     val fbdb = FirebaseDatabase.getInstance().reference
     val query:Query = fbdb.child("User").orderByChild("id").equalTo(FirebaseAuth.getInstance().currentUser?.uid)
     query.addListenerForSingleValueEvent(object :ValueEventListener{
@@ -123,12 +62,6 @@ fun findUser(){
         }
     })
 
-
-//    if (USER_LOG == null){
-//        Log.d("USER_AUTH","User does not found")
-//        createUser()
-//        Log.d("USER_AUTH","User created")
-//    }
 }
 fun createUser(){
     val database: FirebaseDatabase = FirebaseDatabase.getInstance()
