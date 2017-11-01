@@ -32,7 +32,7 @@ class MyService : IntentService("RewordService") {
             fin.setAction(ACTION_FIN)
             sendBroadcast(fin)
         }else if (workIntent.getIntExtra(FIREBASE_POST_HOME,0) != 0){
-            updatePost()
+//            updatePost()
             val fin = Intent()
             fin.setAction(ACTION_FIN)
             sendBroadcast(fin)

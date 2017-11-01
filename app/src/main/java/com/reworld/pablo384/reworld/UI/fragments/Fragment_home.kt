@@ -7,11 +7,9 @@ import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -22,18 +20,15 @@ import com.reworld.pablo384.reworld.adapters.PostAdapter
 import com.reworld.pablo384.reworld.models.Post
 import com.reworld.pablo384.reworld.models.User
 import org.jetbrains.anko.support.v4.toast
-import java.util.*
 import kotlin.collections.ArrayList
 import android.content.Intent
-import android.content.IntentFilter
 import android.net.Uri
-import com.reworld.pablo384.reworld.UI.activities.MainActivity
+import android.support.v7.widget.RecyclerView
+import android.widget.ProgressBar
 import com.reworld.pablo384.reworld.util.MyService
 import com.reworld.pablo384.reworld.util.POSTS_LIST
-import com.reworld.pablo384.reworld.util.procedApplicationWithoutStory
 import kotlinx.android.synthetic.main.activity_task_to_recycle.*
 import kotlinx.android.synthetic.main.fragment_fragment_home.*
-import org.jetbrains.anko.toast
 
 
 /**
@@ -42,14 +37,34 @@ import org.jetbrains.anko.toast
 class Fragment_home : Fragment(), PostAdapter.OnItemClickListener, PostAdapter.OnButtonClickListener {
 
     var mlisten:ListenerHome?=null
-    var post:ArrayList<Post> = ArrayList()
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.fragment_fragment_home, container, false)
+
+
+        with(view){
+            updatePost(view)
+
+        }
+//        val filter = IntentFilter()
+//        filter.addAction(MyService.ACTION_PROGRESO)
+//        filter.addAction(MyService.ACTION_FIN)
+//        val reci = ProgressReciver()
+//        activity.registerReceiver(reci,filter)
+//
+//        val tarea = Intent(context,MyService::class.java)
+//        tarea.putExtra(MyService.FIREBASE_POST_HOME,1)
+//        activity.startService(tarea)
+
+
+        return view
+    }
+
+    private fun updatePost(view:View) {
         val postAdapter = PostAdapter(POSTS_LIST,
-        this@Fragment_home,this@Fragment_home)
+                this@Fragment_home,this@Fragment_home)
         //Pendiente de correr en segundo plano
         val fireBD = FirebaseDatabase.getInstance().getReference("Post")
         fireBD.addValueEventListener(object :ValueEventListener{
@@ -65,31 +80,23 @@ class Fragment_home : Fragment(), PostAdapter.OnItemClickListener, PostAdapter.O
                     POSTS_LIST.add(Post(auName,description,date,latitude,longitude,image))
                 }
                 postAdapter.notifyDataSetChanged()
+
             }
 
             override fun onCancelled(p0: DatabaseError?) {
             }
         })
 
-
         with(view){
-
             findViewById<RecyclerView>(R.id.my_recycler_view_post).setHasFixedSize(true)
             findViewById<RecyclerView>(R.id.my_recycler_view_post).layoutManager = LinearLayoutManager(context)
             findViewById<RecyclerView>(R.id.my_recycler_view_post).adapter = postAdapter
+
+            findViewById<ProgressBar>(R.id.progressBarHome).visibility=View.INVISIBLE
+            findViewById<RecyclerView>(R.id.my_recycler_view_post).visibility=View.VISIBLE
+
         }
-//        val filter = IntentFilter()
-//        filter.addAction(MyService.ACTION_PROGRESO)
-//        filter.addAction(MyService.ACTION_FIN)
-//        val reci = ProgressReciver()
-//        activity.registerReceiver(reci,filter)
-//
-//        val tarea = Intent(context,MyService::class.java)
-//        tarea.putExtra(MyService.FIREBASE_POST_HOME,1)
-//        activity.startService(tarea)
 
-
-        return view
     }
 
     override fun onItemClick(post: Post, position: Int) {

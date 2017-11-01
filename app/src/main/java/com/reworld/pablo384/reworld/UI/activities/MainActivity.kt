@@ -23,6 +23,7 @@ import com.reworld.pablo384.reworld.UI.fragments.Fragment_setting
 import com.reworld.pablo384.reworld.models.User
 import com.reworld.pablo384.reworld.util.MyService
 import com.reworld.pablo384.reworld.util.USER_KEY
+import com.reworld.pablo384.reworld.util.findUser
 
 
 class MainActivity : FragmentActivity(), Fragment_home.ListenerHome,
@@ -94,12 +95,8 @@ class MainActivity : FragmentActivity(), Fragment_home.ListenerHome,
 
     override fun onStart() {
         super.onStart()
-        val fireUser =  FirebaseAuth.getInstance().currentUser
-        user = User(fireUser!!.uid,
-                fireUser.displayName.toString(),
-                fireUser.email.toString(),
-                fireUser.photoUrl.toString())
-        uploadUser(user)
+
+        findUser()
     }
 
     override fun selectedBottomH(name: Int) {
@@ -131,16 +128,6 @@ class MainActivity : FragmentActivity(), Fragment_home.ListenerHome,
         frtr.replace(R.id.content_fragment, fragment, tag)
         frtr.addToBackStack(tag)
         frtr.commit()
-    }
-    private fun uploadUser(user:User){
-        var query = FirebaseDatabase.getInstance().reference.child("User").orderByChild("email").equalTo(user.email)
-
-        Log.d("TAG", query.toString())
-//        val database: FirebaseDatabase = FirebaseDatabase.getInstance()
-//        val myRef = database.getReference("User").push()
-//        myRef.setValue(user)
-//        USER_KEY = myRef.key
-//        toast(USER_KEY!!)
     }
     private fun listListener(){
 

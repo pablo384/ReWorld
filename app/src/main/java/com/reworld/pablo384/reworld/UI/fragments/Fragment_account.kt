@@ -17,6 +17,7 @@ import com.reworld.pablo384.reworld.UI.activities.LoginFBActivity
 import com.reworld.pablo384.reworld.UI.activities.MainActivity
 import com.reworld.pablo384.reworld.UI.activities.TaskToRecycleActivity
 import com.reworld.pablo384.reworld.models.User
+import com.reworld.pablo384.reworld.util.USER_LOG
 import com.reworld.pablo384.reworld.util.procedApplicationWithoutStory
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_fragment_account.view.*
@@ -38,7 +39,7 @@ class Fragment_account : Fragment() {
         mAuth = FirebaseAuth.getInstance()
         with(view){
 
-            Picasso.with(context).load(url).into(profile_image)
+            Picasso.with(context).load(USER_LOG?.photoUrl).into(profile_image)
 
             btLogOut.setOnClickListener { logOut() }
             btCalculator.setOnClickListener({
