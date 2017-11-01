@@ -16,6 +16,7 @@ import com.reworld.pablo384.reworld.util.REQUEST_IMAGE_CAPTURE
 import kotlinx.android.synthetic.main.fragment_fragment_recycle.view.*
 import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.location.Location
@@ -23,6 +24,7 @@ import android.net.Uri
 import android.os.Environment
 import kotlinx.android.synthetic.main.fragment_fragment_recycle.*
 import android.support.design.widget.Snackbar
+import android.support.v4.content.ContextCompat
 import android.support.v4.content.FileProvider
 import android.util.Log
 import com.google.android.gms.common.ConnectionResult
@@ -74,9 +76,24 @@ class Fragment_recycle : Fragment(),
         // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.fragment_fragment_recycle, container, false)
         with(view){
-            buttonTakePicture.setOnClickListener { takePictureIntent() }
-            buttonUpload.setOnClickListener { locationPermission()
-                uploadImages()
+            buttonTakePicture.setOnClickListener {
+                locationPermission()
+                if (ContextCompat.checkSelfPermission(context,Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+                    takePictureIntent()
+                }
+            }
+            buttonUpload.setOnClickListener {
+                locationPermission()
+                if (ContextCompat.checkSelfPermission(context,Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+                    try {
+                        uploadImages()
+                    }catch (e:Exception){
+                        takePictureIntent()
+                        toast("Debes tomar una foto primero")
+                    }
+
+                }
+
             }
             buttonLocation.setOnClickListener {
 
@@ -243,7 +260,7 @@ class Fragment_recycle : Fragment(),
         // Save a file: path for use with ACTION_VIEW intents
         mCurrentPhotoPath = "file:${image.getAbsolutePath()}"
         mCurrentPhotoAbsulutePath = image.absolutePath
-        toast(mCurrentPhotoPath.toString())
+//        toast(mCurrentPhotoPath.toString())
         return image
     }
     fun buildGoogleService(){
