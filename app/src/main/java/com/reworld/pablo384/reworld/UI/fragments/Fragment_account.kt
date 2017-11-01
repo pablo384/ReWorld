@@ -13,6 +13,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 
 import com.reworld.pablo384.reworld.R
+import com.reworld.pablo384.reworld.UI.activities.CalculatorActivity
 import com.reworld.pablo384.reworld.UI.activities.LoginFBActivity
 import com.reworld.pablo384.reworld.UI.activities.MainActivity
 import com.reworld.pablo384.reworld.UI.activities.TaskToRecycleActivity
@@ -35,7 +36,6 @@ class Fragment_account : Fragment() {
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.fragment_fragment_account, container, false)
-        var url = "https://lh3.googleusercontent.com/-COuBXkid6RA/AAAAAAAAAAI/AAAAAAAAAAA/ACnBePZK49qlMSdfStfOkCuLMk4Yy-Uaaw/s96-c-mo/photo.jpg"
         mAuth = FirebaseAuth.getInstance()
         with(view){
 
@@ -43,24 +43,15 @@ class Fragment_account : Fragment() {
 
             btLogOut.setOnClickListener { logOut() }
             btCalculator.setOnClickListener({
-                val i = Intent(context,LoginFBActivity::class.java)
-                startActivity(i)
-
-
-
+                startActivity(Intent(context,CalculatorActivity::class.java))
             })
             btTaskRecycle.setOnClickListener {
-                val act = activity as MainActivity
-                toast(act.getData().toString())
-                startActivity(Intent(context,TaskToRecycleActivity::class.java).putExtra("us",act.getData())) }
+                startActivity(Intent(context,TaskToRecycleActivity::class.java)) }
 
             btreadQR.setOnClickListener {
-                val database:FirebaseDatabase = FirebaseDatabase.getInstance()
-                val myRef = database.getReference("message")
-                myRef.setValue("Hola Putito")
+
             }
         }
-        // Inflate the layout for this fragment
         return view
     }
 

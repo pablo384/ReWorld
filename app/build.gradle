@@ -64,9 +64,6 @@ dependencies {
     compile 'com.github.hkk595:Resizer:v1.2'
 
 
-
-
-
 }
 apply plugin: 'com.google.gms.google-services'
 
