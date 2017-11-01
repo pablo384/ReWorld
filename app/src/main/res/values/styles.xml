@@ -47,7 +47,7 @@
     <style name="EditTextBlack" parent="TextAppearance.AppCompat">
         <item name="android:textColorHighlight">@color/editTextColorBlack</item>
         <item name="android:textColorLink">@color/editTextColorBlack</item>
-        <item name="android:textColorHint">@color/editTextColorBlack</item>
+        <item name="android:textColorHint">@color/colorSecondaryText</item>
         <item name="android:textSize">@dimen/editTextSize</item>
         <item name="android:textColorPrimary">@color/editTextColorBlack</item>
         <item name="colorAccent">@color/editTextColorBlack</item>

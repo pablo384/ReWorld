@@ -1,10 +1,10 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/myCoordinatorLayoutRecycler"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient"
-    android:id="@+id/myCoordinatorLayoutRecycler"
     tools:context="com.reworld.pablo384.reworld.UI.fragments.Fragment_recycle">
 
     <LinearLayout
@@ -32,77 +32,56 @@
             android:scaleType="centerInside"
             android:src="@drawable/noimage_icon_darck_transparent" />
 
-        <Button
-            android:id="@+id/buttonTakePicture"
-            style="@style/ButtonsAccount"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight=".1"
-            android:text="Take Picture" />
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.1"
+            android:layout_weight="0.2"
             android:gravity="center"
             android:orientation="horizontal">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:src="@drawable/ic_action_navigation_rose"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.36"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
 
-            <Button
-                android:id="@+id/buttonLocation"
-                style="@style/ButtonsAccount"
+            <EditText
+                android:id="@+id/editTextDescription"
+                style="@style/EditTextBlack"
                 android:layout_width="0dp"
-                android:text="Location"
-                android:layout_height="match_parent"
-                android:checked="true"
+                android:gravity="center"
+                android:layout_height="0dp"
+                android:hint="Description"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.556"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
 
-            <android.support.constraint.Guideline
-                android:id="@+id/guideline"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.5" />
+            </EditText>
 
-            <android.support.constraint.Guideline
-                android:id="@+id/guideline2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.3396739" />
-
-            <android.support.constraint.Guideline
-                android:id="@+id/guideline3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.66" />
         </android.support.constraint.ConstraintLayout>
 
-
-        <Button
-            android:id="@+id/buttonUpload"
-            style="@style/ButtonsAccount"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight=".1"
-            android:text="Upload" />
+            android:weightSum="1">
+
+            <Button
+                android:id="@+id/buttonUpload"
+                style="@style/ButtonsAccount"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".8"
+                android:text="Upload"
+                android:textSize="18sp" />
+
+            <ImageButton
+                android:id="@+id/buttonTakePicture"
+                android:src="@drawable/ic_camera_enhance"
+                android:scaleType="centerCrop"
+                style="@style/ButtonsAccount"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".2" />
+        </LinearLayout>
+
 
     </LinearLayout>
 

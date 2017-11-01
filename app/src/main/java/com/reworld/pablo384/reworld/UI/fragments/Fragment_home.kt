@@ -29,6 +29,7 @@ import com.reworld.pablo384.reworld.util.MyService
 import com.reworld.pablo384.reworld.util.POSTS_LIST
 import kotlinx.android.synthetic.main.activity_task_to_recycle.*
 import kotlinx.android.synthetic.main.fragment_fragment_home.*
+import java.util.*
 
 
 /**
@@ -79,6 +80,7 @@ class Fragment_home : Fragment(), PostAdapter.OnItemClickListener, PostAdapter.O
                     val longitude = ds.child("longitude").getValue(Double::class.java) as Double
                     POSTS_LIST.add(Post(auName,description,date,latitude,longitude,image))
                 }
+                POSTS_LIST.reverse()
                 postAdapter.notifyDataSetChanged()
 
             }
@@ -86,6 +88,10 @@ class Fragment_home : Fragment(), PostAdapter.OnItemClickListener, PostAdapter.O
             override fun onCancelled(p0: DatabaseError?) {
             }
         })
+
+
+
+
 
         with(view){
             findViewById<RecyclerView>(R.id.my_recycler_view_post).setHasFixedSize(true)

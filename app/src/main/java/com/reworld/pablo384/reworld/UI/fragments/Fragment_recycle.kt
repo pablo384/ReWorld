@@ -35,6 +35,7 @@ import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.OnProgressListener
 import com.google.firebase.storage.UploadTask
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.PermissionToken
@@ -45,6 +46,7 @@ import com.karumi.dexter.listener.single.PermissionListener
 import com.reworld.pablo384.reworld.models.Post
 import com.reworld.pablo384.reworld.util.FIREBASE_STORAGE_IMAGES
 import com.reworld.pablo384.reworld.util.REQUEST_TAKE_PHOTO
+import com.reworld.pablo384.reworld.util.USER_LOG
 import com.squareup.picasso.Picasso
 import me.echodev.resizer.Resizer
 import org.jetbrains.anko.support.v4.toast
@@ -85,19 +87,24 @@ class Fragment_recycle : Fragment(),
             buttonUpload.setOnClickListener {
                 locationPermission()
                 if (ContextCompat.checkSelfPermission(context,Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
-                    try {
-                        uploadImages()
-                    }catch (e:Exception){
-                        takePictureIntent()
-                        toast("Debes tomar una foto primero")
+
+                    if (editTextDescription.text.toString().length > 2){
+                        try {
+                            uploadImages(editTextDescription.text.toString())
+                        }catch (e:Exception){
+                            takePictureIntent()
+                            toast("Debes tomar una foto primero")
+                        }
+                    }else{
+                        toast("The post need a Description")
                     }
 
+                }else{
+                    toast("I need acces to your location to upload the post")
                 }
 
             }
-            buttonLocation.setOnClickListener {
 
-            }
         }
 
         if (mGoogleApiClient == null) {
@@ -107,7 +114,7 @@ class Fragment_recycle : Fragment(),
         return view
     }
 
-    private fun uploadImages(){
+    private fun uploadImages(description:String){
         val uri = Uri.fromFile(File(mCurrentPhotoAbsulutePath))
         val imagesRef = storage.reference.child(FIREBASE_STORAGE_IMAGES+"/"+uri.lastPathSegment)
         val upload = imagesRef.putFile(uri)
@@ -115,13 +122,15 @@ class Fragment_recycle : Fragment(),
             toast("subio nitido")
             urlDownload = p0?.downloadUrl.toString()
             toast(urlDownload.toString())
-            saveData()
+            saveData(description)
+        }.addOnProgressListener {
+            Log.d("TAG", "en proceso de subida")
         }
     }
-    private fun saveData(){
+    private fun saveData(description:String){
         val post = Post(
-                FirebaseAuth.getInstance().currentUser?.displayName,
-                "segunda prueba a la nube",
+                USER_LOG?.name,
+                description,
                 Calendar.getInstance().timeInMillis,mLastLocation!!.latitude,mLastLocation!!.longitude,
                 urlDownload.toString())
         val database: FirebaseDatabase = FirebaseDatabase.getInstance()
