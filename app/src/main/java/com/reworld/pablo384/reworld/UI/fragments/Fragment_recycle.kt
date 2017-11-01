@@ -27,6 +27,7 @@ import android.support.design.widget.Snackbar
 import android.support.v4.content.ContextCompat
 import android.support.v4.content.FileProvider
 import android.util.Log
+import com.ekalips.fancybuttonproj.FancyButton
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.location.LocationServices
@@ -85,23 +86,34 @@ class Fragment_recycle : Fragment(),
                 }
             }
             buttonUpload.setOnClickListener {
-                locationPermission()
-                if (ContextCompat.checkSelfPermission(context,Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+                if (buttonUpload.isExpanded){
+                    buttonUpload.collapse()
 
-                    if (editTextDescription.text.toString().length > 2){
-                        try {
-                            uploadImages(editTextDescription.text.toString())
-                        }catch (e:Exception){
-                            takePictureIntent()
-                            toast("Debes tomar una foto primero")
+                    locationPermission()
+                    if (ContextCompat.checkSelfPermission(context,Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+
+                        if (editTextDescription.text.toString().length > 2){
+                            try {
+                                uploadImages(editTextDescription.text.toString())
+                            }catch (e:Exception){
+                                buttonUpload.expand()
+                                takePictureIntent()
+                                toast("Debes tomar una foto primero")
+                            }
+                        }else{
+                            buttonUpload.expand()
+                            toast("The post need a Description")
                         }
+
                     }else{
-                        toast("The post need a Description")
+                        buttonUpload.expand()
+                        toast("I need acces to your location to upload the post")
                     }
 
                 }else{
-                    toast("I need acces to your location to upload the post")
+                    toast("Wait for the process please")
                 }
+
 
             }
 
@@ -119,9 +131,7 @@ class Fragment_recycle : Fragment(),
         val imagesRef = storage.reference.child(FIREBASE_STORAGE_IMAGES+"/"+uri.lastPathSegment)
         val upload = imagesRef.putFile(uri)
         upload.addOnFailureListener { toast("subida fallo") }.addOnSuccessListener { p0 ->
-            toast("subio nitido")
             urlDownload = p0?.downloadUrl.toString()
-            toast(urlDownload.toString())
             saveData(description)
         }.addOnProgressListener {
             Log.d("TAG", "en proceso de subida")
@@ -136,6 +146,7 @@ class Fragment_recycle : Fragment(),
         val database: FirebaseDatabase = FirebaseDatabase.getInstance()
         val myRef = database.getReference("Post").push()
         myRef.setValue(post)
+        buttonUpload.expand()
     }
 
     override fun onAttach(context: Context?) {
