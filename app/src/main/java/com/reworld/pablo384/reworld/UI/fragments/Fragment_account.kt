@@ -13,10 +13,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 
 import com.reworld.pablo384.reworld.R
-import com.reworld.pablo384.reworld.UI.activities.CalculatorActivity
-import com.reworld.pablo384.reworld.UI.activities.LoginFBActivity
-import com.reworld.pablo384.reworld.UI.activities.MainActivity
-import com.reworld.pablo384.reworld.UI.activities.TaskToRecycleActivity
+import com.reworld.pablo384.reworld.UI.activities.*
 import com.reworld.pablo384.reworld.models.User
 import com.reworld.pablo384.reworld.util.USER_LOG
 import com.reworld.pablo384.reworld.util.procedApplicationWithoutStory
@@ -49,6 +46,7 @@ class Fragment_account : Fragment() {
                 startActivity(Intent(context,TaskToRecycleActivity::class.java)) }
 
             btreadQR.setOnClickListener {
+                startActivity(Intent(context,SimpleScannerActivity::class.java))
 
             }
         }
