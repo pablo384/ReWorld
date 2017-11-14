@@ -100,5 +100,7 @@
     <string name="hint_confirm_password">Confirm Password</string>
     <string name="text_button_createAccount">Create Account</string>
     <string name="toolbar_title_createaccount">Create Account</string>
+    <string name="pick_up">Pick up</string>
+    <string name="la_vega_rd">La Vega, RD</string>
 
 </resources>

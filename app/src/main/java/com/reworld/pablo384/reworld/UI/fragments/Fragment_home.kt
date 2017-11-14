@@ -25,6 +25,7 @@ import android.content.Intent
 import android.net.Uri
 import android.support.v7.widget.RecyclerView
 import android.widget.ProgressBar
+import com.reworld.pablo384.reworld.UI.activities.PostDetailActivity
 import com.reworld.pablo384.reworld.util.MyService
 import com.reworld.pablo384.reworld.util.POSTS_LIST
 import kotlinx.android.synthetic.main.activity_task_to_recycle.*
@@ -106,7 +107,7 @@ class Fragment_home : Fragment(), PostAdapter.OnItemClickListener, PostAdapter.O
     }
 
     override fun onItemClick(post: Post, position: Int) {
-        toast("CLICK EN VISTA")
+        startActivity(Intent(context,PostDetailActivity::class.java).putExtra("position",position))
     }
 
     override fun onButtonClick(post: Post, position: Int) {

@@ -82,8 +82,10 @@
         </activity>
         <activity android:name=".UI.activities.TaskToRecycleActivity" />
         <activity android:name=".UI.activities.CalculatorActivity" />
-        <activity android:name=".UI.activities.SimpleScannerActivity"
-            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".UI.activities.SimpleScannerActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".UI.activities.PostDetailActivity"></activity>
     </application>
 
 </manifest>
