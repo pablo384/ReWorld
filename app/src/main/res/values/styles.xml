@@ -13,6 +13,12 @@
         <item name="android:windowBackground">@drawable/splash</item>
     </style>
 
+    <style name="MyButton" parent="Widget.AppCompat.Button">
+        <item name="background">@color/colorPrimary</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+
 
 
 

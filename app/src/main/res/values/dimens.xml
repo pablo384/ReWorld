@@ -10,5 +10,6 @@
     <dimen name="activity_horizontal_Login_margin">32dp</dimen>
     <dimen name="textSizedonHaveAcount">16sp</dimen>
     <dimen name="edittexr_margin_createaccount">10dp</dimen>
+    <dimen name="calcSize">30sp</dimen>
 
 </resources>

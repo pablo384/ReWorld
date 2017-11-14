@@ -1,156 +1,191 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/calculator_holder"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient"
-    tools:context="com.reworld.pablo384.reworld.UI.activities.CalculatorActivity">
+    android:orientation="vertical"
+    tools:context="com.reworld.pablo384.reworld.UI.activities.CalculatorActivity"
+    tools:ignore="HardcodedText">
 
 
     <LinearLayout
-        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_weight="2.1"
+        android:weightSum="8"
+        android:orientation="horizontal"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/formula"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="7"
+            android:fontFamily="sans-serif-light"
+            android:gravity="right|bottom"
+            android:maxLines="1"
+            android:textSize="@dimen/calcSize" />
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="K"
+            android:gravity="left|bottom"
+            android:textSize="@dimen/calcSize"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_weight="1.8"
+        android:weightSum="8"
+        android:orientation="horizontal"
+        android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/textViewScreen"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            android:text="KLG"
-            android:textSize="30sp" />
-
+            android:id="@+id/result"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="6.5"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center_vertical|right"
+            android:maxLines="1"
+            android:textSize="@dimen/calcSize" />
         <TextView
-            android:id="@+id/textViewResult"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="right"
+            android:layout_weight="1.5"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:text="$RD"
-            android:textSize="30sp"
-            android:textStyle="bold" />
+            android:gravity="left|center_vertical"
+            android:textSize="@dimen/calcSize"
+            />
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_7"
+            style="@style/MyButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="7" />
+
+        <Button
+            android:id="@+id/btn_8"
+            style="@style/MyButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="8" />
+
+        <Button
+            android:id="@+id/btn_9"
+            style="@style/MyButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="9" />
 
     </LinearLayout>
 
-    <TableLayout
-        android:id="@+id/tableLayout2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:orientation="horizontal">
 
-        <TableRow
+        <Button
+            android:id="@+id/btn_4"
+            style="@style/MyButton"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:weightSum=".6">
+            android:layout_weight="1"
+            android:text="4" />
 
-            <TextView
-                android:layout_height="50sp"
-                android:layout_weight=".2"
-                android:gravity="center"
-                android:text="1"
-                android:textAlignment="center" />
-
-            <TextView
-                android:layout_height="50sp"
-                android:layout_weight=".2"
-                android:gravity="center"
-                android:text="2"
-                android:textAlignment="center" />
-
-            <TextView
-                android:layout_height="50sp"
-                android:layout_weight=".2"
-                android:gravity="center"
-                android:text="3"
-                android:textAlignment="center" />
-        </TableRow>
-
-        <TableRow
+        <Button
+            android:id="@+id/btn_5"
+            style="@style/MyButton"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:weightSum=".6">
+            android:layout_weight="1"
+            android:text="5" />
 
-            <TextView
-                android:layout_height="50sp"
-                android:layout_weight=".2"
-                android:gravity="center"
-                android:text="4"
-                android:textAlignment="center" />
-
-            <TextView
-                android:layout_height="50sp"
-                android:layout_weight=".2"
-                android:gravity="center"
-                android:text="5"
-                android:textAlignment="center" />
-
-            <TextView
-                android:layout_height="50sp"
-                android:layout_weight=".2"
-                android:gravity="center"
-                android:text="6"
-                android:textAlignment="center" />
-        </TableRow>
-
-        <TableRow
+        <Button
+            android:id="@+id/btn_6"
+            style="@style/MyButton"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:weightSum=".6">
+            android:layout_weight="1"
+            android:text="6" />
 
-            <TextView
-                android:layout_height="50sp"
-                android:layout_weight=".2"
-                android:gravity="center"
-                android:text="7"
-                android:textAlignment="center" />
+    </LinearLayout>
 
-            <TextView
-                android:layout_height="50sp"
-                android:layout_weight=".2"
-                android:gravity="center"
-                android:text="8"
-                android:textAlignment="center" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:orientation="horizontal">
 
-            <TextView
-                android:layout_height="50sp"
-                android:layout_weight=".2"
-                android:gravity="center"
-                android:text="9"
-                android:textAlignment="center" />
-        </TableRow>
-
-        <TableRow
+        <Button
+            android:id="@+id/btn_1"
+            style="@style/MyButton"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:weightSum=".6">
+            android:layout_weight="1"
+            android:text="1" />
 
-            <TextView
-                android:layout_height="50sp"
-                android:layout_weight=".2"
-                android:gravity="center"
-                android:text="."
-                android:textAlignment="center" />
+        <Button
+            android:id="@+id/btn_2"
+            style="@style/MyButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="2" />
 
-            <TextView
-                android:layout_height="50sp"
-                android:layout_weight=".2"
-                android:gravity="center"
-                android:text="DELETE"
-                android:textAlignment="center" />
-        </TableRow>
+        <Button
+            android:id="@+id/btn_3"
+            style="@style/MyButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="3" />
 
-    </TableLayout>
-</android.support.constraint.ConstraintLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_0"
+            style="@style/MyButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="0" />
+
+        <!--<Button-->
+            <!--android:id="@+id/btn_decimal"-->
+            <!--style="@style/MyButton"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1"-->
+            <!--android:text="." />-->
+
+        <Button
+            android:id="@+id/btn_clear"
+            style="@style/MyButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="AC" />
+    </LinearLayout>
+</LinearLayout>
