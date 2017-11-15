@@ -28,6 +28,7 @@ import android.widget.ProgressBar
 import com.reworld.pablo384.reworld.UI.activities.PostDetailActivity
 import com.reworld.pablo384.reworld.util.MyService
 import com.reworld.pablo384.reworld.util.POSTS_LIST
+import com.reworld.pablo384.reworld.util.POST_LIST_TASK
 import kotlinx.android.synthetic.main.activity_task_to_recycle.*
 import kotlinx.android.synthetic.main.fragment_fragment_home.*
 import java.util.*
@@ -147,6 +148,7 @@ class Fragment_home : Fragment(), PostAdapter.OnItemClickListener, PostAdapter.O
                 .setPositiveButton("Pickup", { dialog, whichButton ->
 //                    deleteCity(position)
                     val item:Post = POSTS_LIST[position]
+                    POST_LIST_TASK.add(item)
                     val uri:Uri = Uri.parse("http://maps.google.com/maps?daddr=${item.latitude},${item.longitude}")
                     showMap(uri)
                 })
@@ -161,20 +163,20 @@ class Fragment_home : Fragment(), PostAdapter.OnItemClickListener, PostAdapter.O
         }
     }
 
-    private inner class ProgressReciver: BroadcastReceiver(){
-        override fun onReceive(context: Context, intent: Intent) {
-            if (intent.action.equals(MyService.ACTION_PROGRESO)){
-                var prog = intent.getIntExtra("progreso",0)
-                progressBar2.progress=prog
-            }else if (intent.action.equals(MyService.ACTION_FIN)){
-                toast("Tarea Finalizada")
-
-
-
-            }
-        }
-
-    }
+//    private inner class ProgressReciver: BroadcastReceiver(){
+//        override fun onReceive(context: Context, intent: Intent) {
+//            if (intent.action.equals(MyService.ACTION_PROGRESO)){
+//                var prog = intent.getIntExtra("progreso",0)
+//                progressBar2.progress=prog
+//            }else if (intent.action.equals(MyService.ACTION_FIN)){
+//                toast("Tarea Finalizada")
+//
+//
+//
+//            }
+//        }
+//
+//    }
 
     interface ListenerHome{
         fun selectedBottomH(name:Int)

@@ -1,24 +1,26 @@
 package com.reworld.pablo384.reworld.UI.activities
 
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
+
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.ProgressBar
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
+import android.view.View
 import com.reworld.pablo384.reworld.R
-import com.reworld.pablo384.reworld.models.User
-import com.reworld.pablo384.reworld.util.MyService
-import kotlinx.android.synthetic.main.activity_task_to_recycle.*
-import org.jetbrains.anko.toast
+import com.reworld.pablo384.reworld.adapters.TaskAdapter
+import com.reworld.pablo384.reworld.models.Post
+import com.reworld.pablo384.reworld.util.POST_LIST_TASK
+import kotlinx.android.synthetic.main.layout_task_items.*
 
-class TaskToRecycleActivity : AppCompatActivity() {
+class TaskToRecycleActivity : AppCompatActivity(), TaskAdapter.OnItemClickListener, TaskAdapter.OnButtonClickListener {
 
+    val postAdapter = TaskAdapter(POST_LIST_TASK,
+            this, this, this)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_task_to_recycle)
+        updateTask()
+
 //        val user = intent.getSerializableExtra("us") as User
 
 //        Log.d("TAG", user.toString())
@@ -35,7 +37,8 @@ class TaskToRecycleActivity : AppCompatActivity() {
 //        val reci = ProgressReciver()
 //        registerReceiver(reci,filter)
     }
-//    private inner class ProgressReciver:BroadcastReceiver(){
+
+    //    private inner class ProgressReciver:BroadcastReceiver(){
 //        override fun onReceive(context: Context, intent: Intent) {
 //            if (intent.action.equals(MyService.ACTION_PROGRESO)){
 //                var prog = intent.getIntExtra("progreso",0)
@@ -46,4 +49,29 @@ class TaskToRecycleActivity : AppCompatActivity() {
 //        }
 //
 //    }
+    private fun updateTask() {
+//        val postAdapter = TaskAdapter(POST_LIST_TASK,
+//                this, this, this)
+        findViewById<RecyclerView>(R.id.my_recycler_view_post_task).setHasFixedSize(true)
+        findViewById<RecyclerView>(R.id.my_recycler_view_post_task).layoutManager = LinearLayoutManager(baseContext)
+        findViewById<RecyclerView>(R.id.my_recycler_view_post_task).adapter = postAdapter
+
+        findViewById<RecyclerView>(R.id.my_recycler_view_post_task).visibility = View.VISIBLE
+
+    }
+
+    override fun onItemClick(post: Post, position: Int) {
+
+    }
+
+    override fun onButtonClick(post: Post, position: Int, id: String?) {
+        if (id!="pickup"){
+            POST_LIST_TASK.removeAt(position)
+            postAdapter.notifyDataSetChanged()
+        }else{
+            buttonPickupTask.isClickable=false
+            buttonPickupTask.setBackgroundResource(R.color.colorPrimaryDark)
+            buttonCancel.visibility=View.INVISIBLE
+        }
+    }
 }

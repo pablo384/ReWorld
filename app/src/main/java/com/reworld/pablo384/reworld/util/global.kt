@@ -19,6 +19,7 @@ val FIREBASE_STORAGE_URL = "gs://reworld-3d5ed.appspot.com/images/"
 val FIREBASE_STORAGE_IMAGES = "images"
 var USER_LOG:User?=null
 val POSTS_LIST:ArrayList<Post> = ArrayList()
+val POST_LIST_TASK:ArrayList<Post> = ArrayList()
 
 
 fun procedApplicationWithoutStory(thisActivity:Activity, nextActivity: Class<*>) {

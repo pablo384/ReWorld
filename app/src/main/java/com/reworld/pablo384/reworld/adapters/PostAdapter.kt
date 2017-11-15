@@ -42,7 +42,7 @@ class PostAdapter(var postList:ArrayList<Post>, val itemClickListener: OnItemCli
             Picasso.with(context).load(post.image)
                     .into(imageViewPostimage)
             if (post.picker !=null) {
-                textViewCatch.text = "picked by: ${post.picker}"
+                textViewTaskCatch.text = "picked by: ${post.picker}"
             }
         }
     }

@@ -39,9 +39,9 @@ class Fragment_account : Fragment() {
             Picasso.with(context).load(USER_LOG?.photoUrl).into(profile_image)
 
             btLogOut.setOnClickListener { logOut() }
-            btCalculator.setOnClickListener({
-                startActivity(Intent(context,CalculatorActivity::class.java))
-            })
+//            btCalculator.setOnClickListener({
+//                startActivity(Intent(context,CalculatorActivity::class.java))
+//            })
             btTaskRecycle.setOnClickListener {
                 startActivity(Intent(context,TaskToRecycleActivity::class.java)) }
 

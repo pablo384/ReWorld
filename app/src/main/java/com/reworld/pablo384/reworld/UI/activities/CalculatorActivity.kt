@@ -24,7 +24,7 @@ class CalculatorActivity : AppCompatActivity() {
 
     private fun numpadClicked(id: Button) {
         formula.text="${formula.text}${id.text}"
-        result.text="${(formula.text.toString().toDouble())/200}"
+        result.text="${(formula.text.toString().toDouble())*3}"
     }
 
     private fun getButtonIds() = arrayOf(btn_0, btn_1, btn_2, btn_3, btn_4, btn_5, btn_6, btn_7, btn_8, btn_9)

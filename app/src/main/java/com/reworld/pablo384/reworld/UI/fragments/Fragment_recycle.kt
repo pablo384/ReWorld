@@ -201,7 +201,7 @@ class Fragment_recycle : Fragment(),
                     .setOutputDirPath("/storage/emulated/0/Android/data/com.reworld.pablo384.reworld/files/Pictures/")
                     .setSourceImage(File(mCurrentPhotoAbsulutePath))
                     .resizedFile
-            toast("Imagen Comprimida")
+
 
         }
 
