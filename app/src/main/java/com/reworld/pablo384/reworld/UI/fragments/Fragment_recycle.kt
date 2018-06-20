@@ -74,7 +74,7 @@ class Fragment_recycle : Fragment(),
     var mGoogleApiClient: GoogleApiClient? = null
     var mLastLocation: Location?=null
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.fragment_fragment_recycle, container, false)
@@ -245,7 +245,7 @@ class Fragment_recycle : Fragment(),
     private fun takePictureIntent() {
         val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         // Ensure that there's a camera activity to handle the intent
-        if (takePictureIntent.resolveActivity(context.packageManager) != null) {
+        if (takePictureIntent.resolveActivity(context!!.packageManager) != null) {
             // Create the File where the photo should go
             var photoFile:File? = null
             try {
@@ -256,7 +256,7 @@ class Fragment_recycle : Fragment(),
             }
             // Continue only if the File was successfully created
             if (photoFile != null) {
-                val photoURI:Uri = FileProvider.getUriForFile(context,
+                val photoURI:Uri = FileProvider.getUriForFile(context!!,
                 "com.reworld.pablo384.reworld.fileprovider",
                 photoFile)
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
@@ -270,7 +270,7 @@ class Fragment_recycle : Fragment(),
         // Create an image file name
         val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
         val imageFileName = "JPEG_" + timeStamp + "_"
-        val storageDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        val storageDir = context!!.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         val image = File.createTempFile(
                 imageFileName, /* prefix */
                 ".jpg", /* suffix */
@@ -284,7 +284,7 @@ class Fragment_recycle : Fragment(),
         return image
     }
     fun buildGoogleService(){
-        mGoogleApiClient = GoogleApiClient.Builder(context)
+        mGoogleApiClient = GoogleApiClient.Builder(this.context!!)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API)
