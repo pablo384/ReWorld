@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "589426147654",
+    "firebase_url": "https://reworld-3d5ed.firebaseio.com",
+    "project_id": "reworld-3d5ed",
+    "storage_bucket": "reworld-3d5ed.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:589426147654:android:791f6c9e99337548",
+        "android_client_info": {
+          "package_name": "com.reworld.pablo384.reworld"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "589426147654-9347eukq2flj9j8r4gonekbklt0m3k1t.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "589426147654-9347eukq2flj9j8r4gonekbklt0m3k1t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfT2YiABDCGx51y1TWfE85fpb7R_SvxKg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
